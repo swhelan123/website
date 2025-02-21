@@ -1,18 +1,21 @@
-// Basic form submission handler
 document.getElementById('contactForm').addEventListener('submit', function(e) {
     e.preventDefault();
   
-    // Collect form data
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const message = document.getElementById('message').value;
-    
-    // For now, simply display a success message.
-    // In a real-world scenario, you'd send this data to a server.
-    const responseDiv = document.getElementById('formResponse');
-    responseDiv.innerHTML = `<p>Thanks, ${name}! Your message has been received.</p>`;
-    
-    // Optionally, clear the form fields
+    // Gather form data
+    const templateParams = {
+      name: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      message: document.getElementById('message').value
+    };
+  
+    // Send the email via EmailJS
+    emailjs.send('service_ppkg78d', 'template_l2pdu2u', templateParams) // Replace with your service and template IDs
+      .then(function(response) {
+        document.getElementById('formResponse').innerHTML = `<p>Thanks, ${templateParams.name}! Your message has been sent.</p>`;
+      }, function(error) {
+        document.getElementById('formResponse').innerHTML = `<p>Oops, something went wrong. Please try again later.</p>`;
+      });
+  
     this.reset();
   });
   
