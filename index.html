@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shane Whelan - CV & Tutoring</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Shane Whelan</h1>
+      <nav>
+        <ul>
+          <li><a href="#cv">CV</a></li>
+          <li><a href="#contact">Tutoring</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section id="cv">
+      <h2>About Me</h2>
+      <p>
+        Hi, I'm Shane Whelan—a 20-year-old Computer Science student currently in
+        my second year at UCD in Ireland. I’m passionate about technology,
+        coding, and developing innovative solutions.
+      </p>
+      <h3>Experience</h3>
+      <ul>
+        <li>Working on diverse coding projects at university</li>
+        <li>Participating in tech clubs and hackathons to sharpen my skills</li>
+      </ul>
+      <h3>Education</h3>
+      <ul>
+        <li>BSc in Computer Science - University College Dublin (Current)</li>
+      </ul>
+    </section>
+
+    <section id="contact">
+      <h2>Get in Touch for Grinds/Tutoring</h2>
+      <p>
+        If you're interested in tutoring or grinds—whether it’s programming,
+        mathematics, or general computer science topics—please fill out the form
+        below.
+      </p>
+      <form id="contactForm">
+        <div>
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+        <div>
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div>
+          <label for="message">Message:</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+        <button type="submit">Send Message</button>
+      </form>
+      <div id="formResponse"></div>
+    </section>
+
+    <script src="func.js"></script>
+  </body>
+</html>
