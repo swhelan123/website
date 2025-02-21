@@ -2,14 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>Shane Whelan - CV & Tutoring</title>
+    <!-- Link to your CSS file if desired -->
     <link rel="stylesheet" href="style.css" />
-    <!-- Google Fonts for a more modern look -->
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
-    />
   </head>
   <body>
     <header>
@@ -22,6 +18,7 @@
       </nav>
     </header>
 
+    <!-- CV Section -->
     <section id="cv">
       <h2>About Me</h2>
       <p>
@@ -29,23 +26,27 @@
         year at UCD, Ireland. I’m passionate about coding and building
         innovative solutions.
       </p>
+
       <h3>Experience</h3>
       <ul>
         <li>University coding projects & hackathons</li>
         <li>Active participation in tech clubs</li>
       </ul>
+
       <h3>Education</h3>
       <ul>
         <li>BSc in Computer Science - University College Dublin (Current)</li>
       </ul>
     </section>
 
+    <!-- Tutoring/Contact Section -->
     <section id="contact">
       <h2>Get in Touch for Grinds/Tutoring</h2>
       <p>
         If you're interested in tutoring—be it programming, mathematics, or
         general computer science—please fill out the form below.
       </p>
+
       <form id="contactForm">
         <div>
           <label for="name">Name:</label>
@@ -64,16 +65,46 @@
       <div id="formResponse"></div>
     </section>
 
-    <!-- Include EmailJS library -->
-    <script
-      type="text/javascript"
-      src="https://cdn.emailjs.com/dist/email.min.js"
-    ></script>
-    <script type="text/javascript">
+    <!-- Include the EmailJS library -->
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
+    <!-- Your custom JavaScript -->
+    <script>
+      // 1. Initialize EmailJS with your *public key* (from the EmailJS Account page)
       (function () {
-        emailjs.init("YOUR_USER_ID"); // Replace with your actual user ID from EmailJS
+        emailjs.init("jGW6KPlI78F_xcx_T"); // e.g. "jvGGWKPlB7F_xcX_T"
       })();
+
+      // 2. Form submission handler
+      document
+        .getElementById("contactForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // Gather form data
+          const templateParams = {
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            message: document.getElementById("message").value,
+          };
+
+          // 3. Send the email using your *Service ID* and *Template ID* from EmailJS
+          emailjs
+            .send("service_ppkg78d", "template_l2pdu2u", templateParams)
+            .then(function (response) {
+              document.getElementById(
+                "formResponse"
+              ).innerHTML = `<p>Thanks, ${templateParams.name}! Your message has been sent.</p>`;
+            })
+            .catch(function (error) {
+              document.getElementById(
+                "formResponse"
+              ).innerHTML = `<p>Oops, something went wrong. Please try again later.</p>`;
+            });
+
+          // Reset the form after submission
+          this.reset();
+        });
     </script>
-    <script src="func.js"></script>
   </body>
 </html>
