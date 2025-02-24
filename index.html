@@ -1,110 +1,233 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>Shane Whelan - CV & Tutoring</title>
-    <!-- Link to your CSS file if desired -->
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <header>
-      <h1>Shane Whelan</h1>
-      <nav>
-        <ul>
-          <li><a href="#cv">CV</a></li>
-          <li><a href="#contact">Tutoring</a></li>
-        </ul>
-      </nav>
-    </header>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+        <title>Shane Whelan - Portfolio & Tutoring</title>
 
-    <!-- CV Section -->
-    <section id="cv">
-      <h2>About Me</h2>
-      <p>
-        Hi, I'm Shane Whelan—a 20-year-old Computer Science student in my second
-        year at UCD, Ireland. I’m passionate about coding and building
-        innovative solutions.
-      </p>
+        <!-- Favicon / Tab Icon -->
+        <link rel="icon" type="image/png" href="icon.png" />
 
-      <h3>Experience</h3>
-      <ul>
-        <li>University coding projects & hackathons</li>
-        <li>Active participation in tech clubs</li>
-      </ul>
+        <!-- Dark Mode Styles (inline for simplicity) -->
+        <style>
+            /* Reset & Basic Setup */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                font-family: sans-serif;
+                background-color: #121212;
+                color: #ffffff;
+                line-height: 1.6;
+                margin: 0;
+                padding: 0;
+            }
 
-      <h3>Education</h3>
-      <ul>
-        <li>BSc in Computer Science - University College Dublin (Current)</li>
-      </ul>
-    </section>
+            /* Header / Banner / Badges */
+            #Header-Badges {
+                text-align: center;
+                padding: 20px;
+                background-color: #1f1f1f;
+            }
+            #Header-Badges img {
+                max-width: 100%;
+                height: auto;
+            }
+            #Header-Badges h1 {
+                margin: 20px 0 10px 0;
+                font-size: 2rem;
+            }
+            #Header-Badges a {
+                margin: 0 10px;
+                display: inline-block;
+            }
 
-    <!-- Tutoring/Contact Section -->
-    <section id="contact">
-      <h2>Get in Touch for Grinds/Tutoring</h2>
-      <p>
-        If you're interested in tutoring—be it programming, mathematics, or
-        general computer science—please fill out the form below.
-      </p>
+            /* Navigation */
+            header nav {
+                background-color: #222222;
+                padding: 10px 0;
+            }
+            header nav ul {
+                list-style: none;
+                display: flex;
+                justify-content: center;
+            }
+            header nav ul li {
+                margin: 0 15px;
+            }
+            header nav ul li a {
+                color: #ffffff;
+                text-decoration: none;
+                font-weight: 600;
+                transition: color 0.3s ease;
+            }
+            header nav ul li a:hover {
+                color: #bbbbbb;
+            }
 
-      <form id="contactForm">
-        <div>
-          <label for="name">Name:</label>
-          <input type="text" id="name" name="name" required />
+            /* Section Containers */
+            section {
+                margin: 20px auto;
+                padding: 20px;
+                max-width: 900px;
+                background-color: #1f1f1f;
+                border-radius: 8px;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+                margin-bottom: 20px;
+            }
+            section h2 {
+                margin-bottom: 10px;
+                font-size: 1.8rem;
+            }
+            section p,
+            section ul,
+            section li {
+                margin-bottom: 10px;
+            }
+            ul {
+                list-style: inside;
+                padding-left: 20px;
+            }
+
+            /* Tools & Tech Icons */
+            .tech-icons {
+                text-align: center;
+                margin: 20px 0;
+            }
+            .tech-icons img {
+                max-width: 100%;
+            }
+
+            /* Contact Form */
+            form div {
+                margin-bottom: 15px;
+            }
+            label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: 600;
+            }
+            input,
+            textarea {
+                width: 100%;
+                padding: 10px;
+                background-color: #2c2c2c;
+                color: #ffffff;
+                border: 1px solid #444444;
+                border-radius: 4px;
+            }
+            input:focus,
+            textarea:focus {
+                outline: none;
+                border-color: #666666;
+            }
+            button {
+                background-color: #3d3d3d;
+                color: #ffffff;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+                font-weight: 600;
+            }
+            button:hover {
+                background-color: #555555;
+            }
+            #formResponse {
+                margin-top: 15px;
+                font-weight: 600;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- Banner & Badges Section -->
+        <div id="Header-Badges">
+            <h1>Shane Whelan</h1>
+            <a href="https://github.com/swhelan123">
+                <img src="https://img.shields.io/badge/Github-navy?style=for-the-badge&logo=github&logoColor=white" alt="Github badge" />
+            </a>
+            <a href="https://www.linkedin.com/in/shane-whelan-364988291/">
+                <img src="https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn badge" />
+            </a>
         </div>
-        <div>
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email" required />
-        </div>
-        <div>
-          <label for="message">Message:</label>
-          <textarea id="message" name="message" rows="5" required></textarea>
-        </div>
-        <button type="submit">Send Message</button>
-      </form>
-      <div id="formResponse"></div>
-    </section>
 
-    <!-- Include the EmailJS library -->
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+        <!-- Navigation -->
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects & Experience</a></li>
+                    <li><a href="#tech">Tools & Tech</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
 
-    <!-- Your custom JavaScript -->
-    <script>
-      // 1. Initialize EmailJS with your *public key* (from the EmailJS Account page)
-      (function () {
-        emailjs.init("jGW6KPlI78F_xcx_T"); // e.g. "jvGGWKPlB7F_xcX_T"
-      })();
+        <!-- About Section -->
+        <section id="about">
+            <h2>🔍 About Me</h2>
+            <p>
+                I’m Shane, a 2nd-year Computer Science student at University College Dublin (UCD), Ireland. I’m currently a <strong>Powertrain Engineer</strong> on UCD’s Formula Student Team, coding
+                the fiddly bits that get readings and control the car. I also love working with Arduinos, 3D printing, and staying active (though doomscrolling is a guilty pleasure).
+            </p>
+            <p>
+                Feel free to explore my site, check out my projects, or reach out for grinds and tutoring. I’m happy to chat about anything from coding to applied maths, or even tips on how to survive
+                college life!
+            </p>
+        </section>
 
-      // 2. Form submission handler
-      document
-        .getElementById("contactForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
+        <!-- Projects & Experience Section -->
+        <section id="projects">
+            <h2>📦 Projects & Experience</h2>
+            <ul>
+                <li>
+                    <strong>Powertrain Engineer @ UCD Formula Student (UCDFS):</strong>
+                    Building real-world engineering solutions, focusing on sensor readings, data handling, and control systems.
+                </li>
 
-          // Gather form data
-          const templateParams = {
-            name: document.getElementById("name").value,
-            email: document.getElementById("email").value,
-            message: document.getElementById("message").value,
-          };
+                <li><strong>Computer Science Tutor:</strong> Previously self-employed, offering grinds in programming, maths, and more.</li>
+                <li><strong>Sales Associate (Homestore + More & JD Sports):</strong> Developed teamwork, communication, and customer service skills.</li>
+            </ul>
+        </section>
 
-          // 3. Send the email using your *Service ID* and *Template ID* from EmailJS
-          emailjs
-            .send("service_ppkg78d", "template_l2pdu2u", templateParams)
-            .then(function (response) {
-              document.getElementById(
-                "formResponse"
-              ).innerHTML = `<p>Thanks, ${templateParams.name}! Your message has been sent.</p>`;
-            })
-            .catch(function (error) {
-              document.getElementById(
-                "formResponse"
-              ).innerHTML = `<p>Oops, something went wrong. Please try again later.</p>`;
-            });
+        <section id="edu">
+            <h2>📚 Education</h2>
+            <p>
 
-          // Reset the form after submission
-          this.reset();
-        });
-    </script>
-  </body>
+                <ul>
+                <li>BSc in Computer Science at UCD (GPA 3.73).<br /></li>
+                <li>Achieved <strong>625 Leaving Cert points</strong> (including 100% in Maths, Physics, and CS).<br /></li>
+                <li>Awarded <strong>UCD Entrance Scholar</strong> for high academic performance.</li>
+                </ul>
+            </p>
+        </section>
+        <!-- Tools & Tech Section -->
+        <section id="tech">
+            <h2>🛠️ Tools and Technologies</h2>
+            <div class="tech-icons">
+                <img src="https://skillicons.dev/icons?i=py,java,c,cpp,js,html,css,arduino,azure" alt="Tech Icons row 1" />
+                <br />
+                <img src="https://skillicons.dev/icons?i=github,latex,mysql,notion,ps,raspberrypi,sublime,vscode" alt="Tech Icons row 2" />
+            </div>
+            <p>
+                I’m comfortable with everything from low-level C/C++ and Arduino projects, to Python scripting, web development, and cloud hosting on Azure. I also have experience in team
+                collaboration tools, version control, and project management.
+            </p>
+        </section>
+
+        <!-- Contact / Tutoring Section -->
+        <section id="contact">
+            <h2>📞 Contact</h2>
+            <p>Interested in getting grinds in Leaving Cert HL Maths, Physics, Computer Science, Applied Maths or have any other questions? Drop me an email at:</p>
+            <p>
+                <strong>
+                    <a href="mailto:shane22whelan@gmail.com" style="color: #ffffff"> shane22whelan@gmail.com </a>
+                </strong>
+            </p>
+        </section>
+    </body>
 </html>
