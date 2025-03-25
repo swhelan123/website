@@ -14,15 +14,13 @@
 
     </head>
 
-    <body>
+    <body class="light-mode">
 
-        <div class="theme-toggle">
-            <!-- Hidden checkbox that we use to detect toggle state -->
-            <input type="checkbox" id="theme-switch" />
+        <!-- Toggle -->
+          <div class="theme-toggle">
+            <input type="checkbox" id="theme-switch" checked />
             <label for="theme-switch" class="toggle-label">
-              <!-- Light Mode Icon -->
               <img src="light.png" alt="Light Mode" class="light-icon" />
-              <!-- Dark Mode Icon -->
               <img src="dark.png" alt="Dark Mode" class="dark-icon" />
             </label>
           </div>
@@ -51,6 +49,7 @@
 
         <!-- About Section -->
         <section id="about">
+            <img src="me.png" alt="Shane Whelan" class="profile-photo">
             <!-- About Section -->
             <section id="about">
               <h2>About Me</h2>
@@ -58,7 +57,7 @@
                 Welcome. My name is Shane Whelan, a second-year Computer Science student at University College Dublin (UCD), Ireland, and a dedicated Powertrain Engineer on UCD’s Formula Student Team. I specialise in developing robust embedded systems for automotive applications—focusing on sensor integration, data acquisition, and control systems.
               </p>
               <p>
-                As co‑founder of <a href="https://smartcert.ie" target="_blank">SmartCert</a>, I am committed to leveraging technology to empower students in achieving excellence in their Leaving Certificate examinations.
+                As co‑founder of <a href="https://smartcert.ie" target="_blank">SmartCert</a> (soon to be rebranded as StudyMate), I am committed to leveraging technology to empower students in achieving excellence in their Leaving Certificate examinations.
               </p>
               <p>
                 I invite you to explore my portfolio and review my professional credentials. For a detailed account of my education, experience, and technical expertise, please download my CV below.
@@ -96,9 +95,11 @@
         <section id="tech">
             <h2>🛠️ Tools and Technologies</h2>
             <div class="tech-icons">
+                <center>
                 <img src="https://skillicons.dev/icons?i=py,java,c,cpp,js,html,css,arduino,azure" alt="Tech Icons row 1" />
                 <br />
                 <img src="https://skillicons.dev/icons?i=github,latex,mysql,notion,ps,raspberrypi,sublime,vscode,eclipse" alt="Tech Icons row 2" />
+           </center>
             </div>
             <p>
                 I’m comfortable with everything from low-level C/C++ and Arduino projects, to Python scripting, web development, and cloud hosting on Azure. I also have experience in team
@@ -111,9 +112,11 @@
             <h2>📞 Contact</h2>
             <p>Interested in getting grinds in Leaving Cert HL Maths, Physics, Computer Science, Applied Maths or have any other questions? Drop me an email at:</p>
             <p>
+                <center>
                 <strong>
-                    <a href="mailto:shane22whelan@gmail.com" style="color: #ffffff"> shane22whelan@gmail.com </a>
+                    <a href="mailto:shane22whelan@gmail.com"> shane22whelan@gmail.com </a>
                 </strong>
+                </center>
             </p>
         </section>
         <script src="script.js"></script>
