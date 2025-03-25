@@ -242,3 +242,7 @@ label {
     border-radius: 50%; /* gives it a circular look */
     margin: 0 auto 1rem; /* centres the image and adds spacing */
 }
+
+a.cv-button {
+    color: #ffffff;
+}
