@@ -8,142 +8,24 @@
         <!-- Favicon / Tab Icon -->
         <link rel="icon" type="image/png" href="icon.png" />
 
-        <!-- Dark Mode Styles (inline for simplicity) -->
-        <style>
-            /* Reset & Basic Setup */
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
-            body {
-                font-family: sans-serif;
-                background-color: #121212;
-                color: #ffffff;
-                line-height: 1.6;
-                margin: 0;
-                padding: 0;
-            }
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&amp;display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="styles.css">
 
-            /* Header / Banner / Badges */
-            #Header-Badges {
-                text-align: center;
-                padding: 20px;
-                background-color: #1f1f1f;
-            }
-            #Header-Badges img {
-                max-width: 100%;
-                height: auto;
-            }
-            #Header-Badges h1 {
-                margin: 20px 0 10px 0;
-                font-size: 2rem;
-            }
-            #Header-Badges a {
-                margin: 0 10px;
-                display: inline-block;
-            }
-
-            /* Navigation */
-            header nav {
-                background-color: #222222;
-                padding: 10px 0;
-            }
-            header nav ul {
-                list-style: none;
-                display: flex;
-                justify-content: center;
-            }
-            header nav ul li {
-                margin: 0 15px;
-            }
-            header nav ul li a {
-                color: #ffffff;
-                text-decoration: none;
-                font-weight: 600;
-                transition: color 0.3s ease;
-            }
-            header nav ul li a:hover {
-                color: #bbbbbb;
-            }
-
-            /* Section Containers */
-            section {
-                margin: 20px auto;
-                padding: 20px;
-                max-width: 900px;
-                background-color: #1f1f1f;
-                border-radius: 8px;
-                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-                margin-bottom: 20px;
-            }
-            section h2 {
-                margin-bottom: 10px;
-                font-size: 1.8rem;
-            }
-            section p,
-            section ul,
-            section li {
-                margin-bottom: 10px;
-            }
-            ul {
-                list-style: inside;
-                padding-left: 20px;
-            }
-
-            /* Tools & Tech Icons */
-            .tech-icons {
-                text-align: center;
-                margin: 20px 0;
-            }
-            .tech-icons img {
-                max-width: 100%;
-            }
-
-            /* Contact Form */
-            form div {
-                margin-bottom: 15px;
-            }
-            label {
-                display: block;
-                margin-bottom: 5px;
-                font-weight: 600;
-            }
-            input,
-            textarea {
-                width: 100%;
-                padding: 10px;
-                background-color: #2c2c2c;
-                color: #ffffff;
-                border: 1px solid #444444;
-                border-radius: 4px;
-            }
-            input:focus,
-            textarea:focus {
-                outline: none;
-                border-color: #666666;
-            }
-            button {
-                background-color: #3d3d3d;
-                color: #ffffff;
-                border: none;
-                padding: 10px 20px;
-                border-radius: 4px;
-                cursor: pointer;
-                transition: background-color 0.3s ease;
-                font-weight: 600;
-            }
-            button:hover {
-                background-color: #555555;
-            }
-            #formResponse {
-                margin-top: 15px;
-                font-weight: 600;
-            }
-        </style>
     </head>
 
     <body>
+
+        <div class="theme-toggle">
+            <!-- Hidden checkbox that we use to detect toggle state -->
+            <input type="checkbox" id="theme-switch" />
+            <label for="theme-switch" class="toggle-label">
+              <!-- Light Mode Icon -->
+              <img src="light.png" alt="Light Mode" class="light-icon" />
+              <!-- Dark Mode Icon -->
+              <img src="dark.png" alt="Dark Mode" class="dark-icon" />
+            </label>
+          </div>
         <!-- Banner & Badges Section -->
         <div id="Header-Badges">
             <h1>Shane Whelan</h1>
@@ -169,16 +51,21 @@
 
         <!-- About Section -->
         <section id="about">
-            <h2>🔍 About Me</h2>
-            <p>
-                I’m Shane, a 2nd-year Computer Science student at University College Dublin (UCD), Ireland. I’m currently a <strong>Powertrain Engineer</strong> on UCD’s Formula Student Team, coding
-                the fiddly bits that get readings and control the car. I also love working with Arduinos, 3D printing, and staying active (though doomscrolling is a guilty pleasure).
-            </p>
-            <p>
-                Feel free to explore my site, check out my projects, or reach out for grinds and tutoring. I’m happy to chat about anything from coding to applied maths, or even tips on how to survive
-                college life!
-            </p>
-        </section>
+            <!-- About Section -->
+            <section id="about">
+              <h2>About Me</h2>
+              <p>
+                Welcome. My name is Shane Whelan, a second-year Computer Science student at University College Dublin (UCD), Ireland, and a dedicated Powertrain Engineer on UCD’s Formula Student Team. I specialise in developing robust embedded systems for automotive applications—focusing on sensor integration, data acquisition, and control systems.
+              </p>
+              <p>
+                As co‑founder of <a href="https://smartcert.ie" target="_blank">SmartCert</a>, I am committed to leveraging technology to empower students in achieving excellence in their Leaving Certificate examinations.
+              </p>
+              <p>
+                I invite you to explore my portfolio and review my professional credentials. For a detailed account of my education, experience, and technical expertise, please download my CV below.
+              </p>
+              <a href="Shane-Whelan-CV.pdf" download class="cv-button">Download CV</a>
+            </section>
+
 
         <!-- Projects & Experience Section -->
         <section id="projects">
@@ -229,5 +116,6 @@
                 </strong>
             </p>
         </section>
+        <script src="script.js"></script>
     </body>
 </html>
