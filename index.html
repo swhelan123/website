@@ -2,121 +2,248 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-        <title>Shane Whelan - CV</title>
-
-        <!-- Favicon / Tab Icon -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Shane Whelan | Portfolio</title>
         <link rel="icon" type="image/png" href="icon.png" />
-
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&amp;display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="styles.css">
-
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="styles.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     </head>
-
     <body class="light-mode">
-
-        <!-- Toggle -->
-          <div class="theme-toggle">
+        <div class="theme-toggle">
             <input type="checkbox" id="theme-switch" checked />
             <label for="theme-switch" class="toggle-label">
-              <img src="light.png" alt="Light Mode" class="light-icon" />
-              <img src="dark.png" alt="Dark Mode" class="dark-icon" />
+                <i class="fas fa-sun light-icon"></i>
+                <i class="fas fa-moon dark-icon"></i>
             </label>
-          </div>
-        <!-- Banner & Badges Section -->
-        <div id="Header-Badges">
-            <h1>Shane Whelan</h1>
-            <a href="https://github.com/swhelan123">
-                <img src="https://img.shields.io/badge/Github-navy?style=for-the-badge&logo=github&logoColor=white" alt="Github badge" />
-            </a>
-            <a href="https://www.linkedin.com/in/shane-whelan-364988291/">
-                <img src="https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn badge" />
-            </a>
         </div>
 
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-image">
+                    <img src="me.png" alt="Shane Whelan" class="profile-photo" />
+                </div>
+                <div class="hero-text">
+                    <h1>Shane Whelan</h1>
+                    <p class="subtitle">Computer Science Student & Powertrain Engineer</p>
+                    <div class="hero-badges">
+                        <a href="https://github.com/swhelan123" class="social-badge github"> <i class="fab fa-github"></i> GitHub </a>
+                        <a href="https://www.linkedin.com/in/shane-whelan-364988291/" class="social-badge linkedin"> <i class="fab fa-linkedin"></i> LinkedIn </a>
+                        <a href="Shane-Whelan-CV.pdf" download class="cv-button"> <i class="fas fa-download"></i> Download CV </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Navigation -->
-        <header>
+        <header class="sticky-header">
             <nav>
                 <ul>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#projects">Projects & Experience</a></li>
-                    <li><a href="#tech">Tools & Tech</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li>
+                        <a href="#about"><i class="fas fa-user"></i> About</a>
+                    </li>
+                    <li>
+                        <a href="#education"><i class="fas fa-graduation-cap"></i> Education</a>
+                    </li>
+                    <li>
+                        <a href="#projects"><i class="fas fa-briefcase"></i> Experience</a>
+                    </li>
+                    <li>
+                        <a href="#tech"><i class="fas fa-code"></i> Skills</a>
+                    </li>
+                    <li>
+                        <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+                    </li>
                 </ul>
             </nav>
         </header>
 
-        <!-- About Section -->
-        <section id="about">
-            <img src="me.png" alt="Shane Whelan" class="profile-photo">
-              <h2>About Me</h2>
-              <p>
-                Welcome. My name is Shane Whelan, a second-year Computer Science student at University College Dublin (UCD), Ireland, and a dedicated Powertrain Engineer on UCD’s Formula Student Team. I specialise in developing robust embedded systems for automotive applications—focusing on sensor integration, data acquisition, and control systems.
-              </p>
-              <p>
-                As co‑founder of <a href="https://smartcert.ie" target="_blank">SmartCert</a> (soon to be rebranded as StudyMate), I am committed to leveraging technology to empower students in achieving excellence in their Leaving Certificate examinations.
-              </p>
-              <p>
-                I invite you to explore my portfolio and review my professional credentials. For a detailed account of my education, experience, and technical expertise, please download my CV below.
-              </p>
-              <a href="Shane-Whelan-CV.pdf" download class="cv-button">Download CV</a>
+        <main>
+            <!-- About Section -->
+            <section id="about" class="about-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-user section-icon"></i> About Me</h2>
+                    <div class="section-line"></div>
+                </div>
+                <div class="about-content">
+                    <p>
+                        Welcome! I'm Shane Whelan, a second-year Computer Science student at University College Dublin (UCD), Ireland, and a dedicated Powertrain Engineer on UCD's Formula Student
+                        Team. I specialize in developing robust embedded systems for automotive applications—focusing on sensor integration, data acquisition, and control systems.
+                    </p>
+                    <p>
+                        As co‑founder of <a href="https://smartcert.ie" target="_blank">SmartCert</a> (soon to be rebranded as StudyMate), I am committed to leveraging technology to empower students
+                        in achieving excellence in their Leaving Certificate examinations.
+                    </p>
+                    <p>I invite you to explore my portfolio and review my professional credentials below.</p>
+                </div>
             </section>
 
+            <!-- Education Section -->
+            <section id="education" class="education-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-graduation-cap section-icon"></i> Education</h2>
+                    <div class="section-line"></div>
+                </div>
+                <div class="education-cards">
+                    <div class="education-card">
+                        <div class="education-icon">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <div class="education-details">
+                            <h3>BSc in Computer Science</h3>
+                            <p class="education-institution">University College Dublin</p>
+                            <p class="education-gpa">Current GPA: 3.73</p>
+                            <p class="education-achievement">UCD Entrance Scholar</p>
+                        </div>
+                    </div>
+                    <div class="education-card">
+                        <div class="education-icon">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <div class="education-details">
+                            <h3>Leaving Certificate</h3>
+                            <p class="education-points">625 Points</p>
+                            <p class="education-subjects">100% in Mathematics, Physics, and Computer Science</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-        <!-- Projects & Experience Section -->
-        <section id="projects">
-            <h2>📦 Projects & Experience</h2>
-            <ul>
-                <li>
-                    <strong>Powertrain Engineer @ UCD Formula Student (UCDFS):</strong>
-                    Building real-world engineering solutions, focusing on sensor readings, data handling, and control systems.
-                </li>
+            <!-- Projects & Experience Section -->
+            <section id="projects" class="projects-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-briefcase section-icon"></i> Projects & Experience</h2>
+                    <div class="section-line"></div>
+                </div>
+                <div class="projects-container">
+                    <div class="project-card">
+                        <div class="card-header">
+                            <i class="fas fa-car-battery"></i>
+                            <h3>Powertrain Engineer</h3>
+                        </div>
+                        <div class="card-content">
+                            <p class="project-organization">UCD Formula Student (UCDFS)</p>
+                            <p>Building real-world engineering solutions, focusing on sensor readings, data handling, and control systems for race car performance optimization.</p>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="card-header">
+                            <i class="fas fa-laptop-code"></i>
+                            <h3>Co-founder</h3>
+                        </div>
+                        <div class="card-content">
+                            <p class="project-organization">SmartCert (StudyMate)</p>
+                            <p>Developing an educational platform to help students excel in their Leaving Certificate examinations through innovative technology solutions.</p>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="card-header">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <h3>Computer Science Tutor</h3>
+                        </div>
+                        <div class="card-content">
+                            <p class="project-organization">Self-employed</p>
+                            <p>Providing personalized grinds in programming, mathematics, and related subjects to help students achieve academic excellence.</p>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="card-header">
+                            <i class="fas fa-store"></i>
+                            <h3>Sales Associate</h3>
+                        </div>
+                        <div class="card-content">
+                            <p class="project-organization">Homestore + More & JD Sports</p>
+                            <p>Developed strong teamwork, communication, and customer service skills in fast-paced retail environments.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-                <li><strong>Computer Science Tutor:</strong> Previously self-employed, offering grinds in programming, maths, and more.</li>
-                <li><strong>Sales Associate (Homestore + More & JD Sports):</strong> Developed teamwork, communication, and customer service skills.</li>
-            </ul>
-        </section>
+            <!-- Tools & Tech Section -->
+            <section id="tech" class="tech-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-code section-icon"></i> Tools & Technologies</h2>
+                    <div class="section-line"></div>
+                </div>
+                <div class="skills-container">
+                    <div class="skills-category">
+                        <h3>Programming Languages</h3>
+                        <div class="skills-grid">
+                            <div class="skill-item"><i class="fab fa-python"></i> Python</div>
+                            <div class="skill-item"><i class="fab fa-java"></i> Java</div>
+                            <div class="skill-item"><i class="fas fa-code"></i> C</div>
+                            <div class="skill-item"><i class="fas fa-code"></i> C++</div>
+                            <div class="skill-item"><i class="fab fa-js"></i> JavaScript</div>
+                        </div>
+                    </div>
+                    <div class="skills-category">
+                        <h3>Web Development</h3>
+                        <div class="skills-grid">
+                            <div class="skill-item"><i class="fab fa-html5"></i> HTML5</div>
+                            <div class="skill-item"><i class="fab fa-css3-alt"></i> CSS3</div>
+                        </div>
+                    </div>
+                    <div class="skills-category">
+                        <h3>Tools & Platforms</h3>
+                        <div class="skills-grid">
+                            <div class="skill-item"><i class="fab fa-github"></i> GitHub</div>
+                            <div class="skill-item"><i class="fas fa-font"></i> LaTeX</div>
+                            <div class="skill-item"><i class="fas fa-database"></i> MySQL</div>
+                            <div class="skill-item"><i class="fab fa-microsoft"></i> Azure</div>
+                            <div class="skill-item"><i class="fas fa-edit"></i> Notion</div>
+                            <div class="skill-item"><i class="fab fa-adobe"></i> Photoshop</div>
+                        </div>
+                    </div>
+                    <div class="skills-category">
+                        <h3>Development Environments</h3>
+                        <div class="skills-grid">
+                            <div class="skill-item"><i class="fas fa-microchip"></i> Arduino</div>
+                            <div class="skill-item"><i class="fab fa-raspberry-pi"></i> Raspberry Pi</div>
+                            <div class="skill-item"><i class="fas fa-code"></i> VSCode</div>
+                            <div class="skill-item"><i class="fas fa-code"></i> Sublime Text</div>
+                            <div class="skill-item"><i class="fas fa-coffee"></i> Eclipse</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-        <section id="edu">
-            <h2>📚 Education</h2>
-            <p>
+            <!-- Contact Section -->
+            <section id="contact" class="contact-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-envelope section-icon"></i> Contact</h2>
+                    <div class="section-line"></div>
+                </div>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <p>Interested in getting grinds in Leaving Cert HL Maths, Physics, Computer Science, Applied Maths or have any other questions? Drop me an email:</p>
+                        <a href="mailto:shane22whelan@gmail.com" class="email-button"> <i class="fas fa-envelope"></i> shane22whelan@gmail.com </a>
+                    </div>
+                    <div class="contact-image">
+                        <img src="https://via.placeholder.com/300" alt="Contact illustration" class="contact-illustration" />
+                    </div>
+                </div>
+            </section>
+        </main>
 
-                <ul>
-                <li>BSc in Computer Science at UCD (GPA 3.73).<br /></li>
-                <li>Achieved <strong>625 Leaving Cert points</strong> (including 100% in Maths, Physics, and CS).<br /></li>
-                <li>Awarded <strong>UCD Entrance Scholar</strong> for high academic performance.</li>
-                </ul>
-            </p>
-        </section>
-        <!-- Tools & Tech Section -->
-        <section id="tech">
-            <h2>🛠️ Tools and Technologies</h2>
-            <div class="tech-icons">
-                <center>
-                <img src="https://skillicons.dev/icons?i=py,java,c,cpp,js,html,css,arduino,azure" alt="Tech Icons row 1" />
-                <br />
-                <img src="https://skillicons.dev/icons?i=github,latex,mysql,notion,ps,raspberrypi,sublime,vscode,eclipse" alt="Tech Icons row 2" />
-           </center>
+        <footer>
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Shane Whelan</h3>
+                    <p>Computer Science Student & Engineer</p>
+                </div>
+                <div class="footer-social">
+                    <a href="https://github.com/swhelan123"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/shane-whelan-364988291/"><i class="fab fa-linkedin"></i></a>
+                </div>
             </div>
-            <p>
-                I’m comfortable with everything from low-level C/C++ and Arduino projects, to Python scripting, web development, and cloud hosting on Azure. I also have experience in team
-                collaboration tools, version control, and project management.
-            </p>
-        </section>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Shane Whelan. All rights reserved.</p>
+            </div>
+        </footer>
 
-        <!-- Contact / Tutoring Section -->
-        <section id="contact">
-            <h2>📞 Contact</h2>
-            <p>Interested in getting grinds in Leaving Cert HL Maths, Physics, Computer Science, Applied Maths or have any other questions? Drop me an email at:</p>
-            <p>
-                <center>
-                <strong>
-                    <a href="mailto:shane22whelan@gmail.com"> shane22whelan@gmail.com </a>
-                </strong>
-                </center>
-            </p>
-        </section>
         <script src="script.js"></script>
     </body>
 </html>
