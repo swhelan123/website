@@ -26,9 +26,11 @@
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
     line-height: 1.6;
-    transition: background-color var(--transition-speed), color var(--transition-speed);
+    transition:
+        background-color var(--transition-speed),
+        color var(--transition-speed);
     scroll-behavior: smooth;
     overflow-x: hidden;
 }
@@ -53,7 +55,8 @@ body {
     box-shadow: var(--box-shadow);
 }
 
-.light-icon, .dark-icon {
+.light-icon,
+.dark-icon {
     font-size: 1.2rem;
 }
 
@@ -272,7 +275,9 @@ body.dark-mode footer {
     z-index: 100;
     width: 100%;
     padding: 1rem 0;
-    transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+    transition:
+        background-color var(--transition-speed),
+        box-shadow var(--transition-speed);
 }
 
 nav ul {
@@ -293,7 +298,7 @@ nav ul li a {
 }
 
 nav ul li a::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: -5px;
     left: 0;
@@ -359,7 +364,7 @@ section {
 }
 
 .about-content a::after {
-    content: '';
+    content: "";
     position: absolute;
     width: 100%;
     height: 2px;
@@ -388,7 +393,9 @@ section {
     border-radius: var(--border-radius);
     display: flex;
     gap: 1.2rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 .education-card:hover {
@@ -428,7 +435,9 @@ section {
 .project-card {
     border-radius: var(--border-radius);
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 .project-card:hover {
@@ -475,7 +484,7 @@ section {
 }
 
 .skills-category h3::after {
-    content: '';
+    content: "";
     position: absolute;
     width: 100%;
     height: 2px;
@@ -671,3 +680,29 @@ footer {
     }
 
     .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+    }
+
+    .skill-item {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    .section-header h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Hide the checkbox while keeping it functional */
+#theme-switch {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Fix for Adobe Photoshop icon */
+.fa-adobe:before {
+    content: "\f778"; /* Font Awesome 6 code for Adobe icon */
+}
