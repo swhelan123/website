@@ -438,6 +438,7 @@ section {
     transition:
         transform 0.3s ease,
         box-shadow 0.3s ease;
+    will-change: transform; /* Add this for smoother transitions */
 }
 
 .project-card:hover {
@@ -721,4 +722,30 @@ body.light-mode * {
     transition:
         background-color var(--transition-speed),
         color var(--transition-speed);
+}
+
+body.light-mode,
+body.dark-mode {
+    transition: background-color 0.3s ease;
+}
+
+body.light-mode *,
+body.dark-mode * {
+    transition:
+        background-color 0.3s ease,
+        color 0.2s ease; /* Make color transition faster */
+}
+
+/* Specifically target text elements to make them transition faster */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+span,
+li {
+    transition: color 0.2s ease !important;
 }
