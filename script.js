@@ -94,26 +94,70 @@ window.addEventListener("scroll", () => {
   }
 });
 
-// Add Typing Animation to Subtitle
+// Typing Animation for Roles with realistic cursor behavior
 document.addEventListener("DOMContentLoaded", () => {
-  const subtitle = document.querySelector(".subtitle");
-  const text = subtitle.textContent;
-  subtitle.textContent = "";
+  const typingTextElement = document.querySelector(".typing-text");
+  const cursorElement = document.querySelector(".cursor");
+  const roles = ["Computer Scientist", "Software Engineer", "Powertrain Engineer", "Web Developer"];
 
-  let i = 0;
-  const typingEffect = () => {
-    if (i < text.length) {
-      subtitle.textContent += text.charAt(i);
-      i++;
-      setTimeout(typingEffect, 50);
+  let roleIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+  let typingSpeed = 100; // Base typing speed
+
+  // Stop cursor blinking during typing
+  function stopCursorBlink() {
+    cursorElement.style.opacity = "1";
+    cursorElement.style.animation = "none";
+  }
+
+  // Start cursor blinking during pauses
+  function startCursorBlink() {
+    cursorElement.style.animation = "blink 0.7s infinite";
+  }
+
+  function typeRole() {
+    const currentRole = roles[roleIndex];
+
+    // Stop cursor blinking during typing/deleting
+    stopCursorBlink();
+
+    if (isDeleting) {
+      // Deleting text
+      typingTextElement.textContent = currentRole.substring(0, charIndex);
+      charIndex--;
+      typingSpeed = 50; // Faster when deleting
+    } else {
+      // Typing text
+      typingTextElement.textContent = currentRole.substring(0, charIndex + 1);
+      charIndex++;
+      typingSpeed = 100; // Normal speed when typing
     }
-  };
 
-  // Start typing animation after a short delay
-  setTimeout(typingEffect, 500);
+    // If finished typing the current role
+    if (!isDeleting && charIndex === currentRole.length) {
+      // Pause before starting to delete - cursor should blink during pause
+      isDeleting = false;
+      typingSpeed = 1500; // Pause at the end of typing
+      startCursorBlink();
+      setTimeout(() => {
+        isDeleting = true;
+      }, typingSpeed);
+    }
+    // If finished deleting the current role
+    else if (isDeleting && charIndex < 0) {
+      isDeleting = false;
+      roleIndex = (roleIndex + 1) % roles.length; // Move to next role
+      charIndex = 0; // Reset character index
+      typingSpeed = 500; // Pause before typing next role
+      startCursorBlink();
+    }
 
-  // Apply hover effects via JS for additional reliability
-  applyHoverEffects();
+    setTimeout(typeRole, typingSpeed);
+  }
+
+  // Start the typing animation
+  setTimeout(typeRole, 500);
 });
 
 // Function to ensure hover effects work consistently
