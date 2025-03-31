@@ -41,10 +41,13 @@ h3,
 h4,
 h5,
 h6,
-a,
 span,
-li,
-i {
+li {
+    transition: color 0.1s ease !important;
+}
+
+/* Links need special treatment for hover */
+a {
     transition: color 0.1s ease !important;
 }
 
@@ -220,7 +223,7 @@ body.dark-mode footer {
     height: auto;
     border-radius: 50%;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    transition: transform 0.5s ease;
+    transition: transform 0.3s ease;
     border: 4px solid var(--primary-color);
 }
 
@@ -261,8 +264,10 @@ body.dark-mode footer {
     border-radius: 50px;
     text-decoration: none;
     font-weight: 500;
+    transform: translateY(0);
     transition: all 0.2s ease-out;
     gap: 0.5rem;
+    will-change: transform, background-color, box-shadow;
 }
 
 .github {
@@ -295,8 +300,12 @@ body.dark-mode footer {
     text-decoration: none;
     border-radius: 50px;
     font-weight: 500;
-    transition: all 0.2s ease-out;
+    transform: translateY(0);
+    transition:
+        transform 0.2s ease-out,
+        box-shadow 0.2s ease-out;
     box-shadow: 0 4px 10px rgba(0, 102, 204, 0.3);
+    will-change: transform, box-shadow;
 }
 
 .cv-button:hover {
@@ -331,6 +340,12 @@ nav ul li a {
     align-items: center;
     gap: 0.5rem;
     position: relative;
+    transform: translateY(0);
+    will-change: transform;
+}
+
+nav ul li a:hover {
+    transform: translateY(-2px);
 }
 
 nav ul li a::after {
@@ -397,6 +412,13 @@ section {
     font-weight: 500;
     text-decoration: none;
     position: relative;
+    transform: translateY(0);
+    transition: transform 0.2s ease-out;
+    will-change: transform;
+}
+
+.about-content a:hover {
+    transform: translateY(-2px);
 }
 
 .about-content a::after {
@@ -434,7 +456,7 @@ section {
         transform 0.2s ease-out,
         box-shadow 0.2s ease-out,
         background-color 0.2s ease;
-    will-change: transform;
+    will-change: transform, box-shadow;
 }
 
 .education-card:hover {
@@ -480,7 +502,7 @@ section {
         transform 0.2s ease-out,
         box-shadow 0.2s ease-out,
         background-color 0.2s ease;
-    will-change: transform;
+    will-change: transform, box-shadow;
 }
 
 .project-card:hover {
@@ -556,7 +578,8 @@ section {
         transform 0.2s ease-out,
         box-shadow 0.2s ease-out,
         background-color 0.2s ease;
-    will-change: transform;
+    will-change: transform, box-shadow;
+    cursor: default;
 }
 
 .skill-item:hover {
@@ -594,8 +617,12 @@ section {
     text-decoration: none;
     border-radius: var(--border-radius);
     font-weight: 500;
-    transition: all 0.2s ease-out;
+    transform: translateY(0);
+    transition:
+        transform 0.2s ease-out,
+        box-shadow 0.2s ease-out;
     box-shadow: 0 4px 10px rgba(0, 102, 204, 0.3);
+    will-change: transform, box-shadow;
 }
 
 .email-button:hover {
@@ -641,7 +668,12 @@ footer {
 
 .footer-social a {
     font-size: 1.5rem;
-    transition: transform 0.2s ease-out;
+    transform: translateY(0);
+    transition:
+        transform 0.2s ease-out,
+        color 0.2s ease;
+    will-change: transform;
+    display: inline-block;
 }
 
 .footer-social a:hover {
