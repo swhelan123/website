@@ -706,3 +706,19 @@ footer {
 .fa-adobe:before {
     content: "\f778"; /* Font Awesome 6 code for Adobe icon */
 }
+
+.toggle-label .light-icon,
+.toggle-label .dark-icon {
+    transition: opacity 0.3s ease;
+}
+
+.toggle-label:hover {
+    transform: scale(1.1);
+}
+
+body.dark-mode *,
+body.light-mode * {
+    transition:
+        background-color var(--transition-speed),
+        color var(--transition-speed);
+}
