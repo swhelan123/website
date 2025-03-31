@@ -33,22 +33,28 @@ body {
     overflow-x: hidden;
 }
 
-/* Fast text transitions */
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-span,
-li {
-    transition: color 0.1s ease !important;
-}
-
-/* Links need special treatment for hover */
-a {
-    transition: color 0.1s ease !important;
+/* Global transition for all elements */
+a,
+button,
+.card,
+.skill-item,
+.project-card,
+.education-card,
+.toggle-label,
+.profile-photo,
+.social-badge,
+.cv-button,
+.email-button,
+.footer-social a,
+.hero-badges a,
+nav ul li a {
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease,
+        border-color 0.2s ease !important;
 }
 
 /* ========== THEME TOGGLE ========== */
@@ -69,7 +75,8 @@ a {
     cursor: pointer;
     transition:
         background-color 0.2s ease,
-        transform 0.2s ease;
+        transform 0.2s ease,
+        box-shadow 0.2s ease !important;
     box-shadow: var(--box-shadow);
 }
 
@@ -223,12 +230,15 @@ body.dark-mode footer {
     height: auto;
     border-radius: 50%;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease !important;
     border: 4px solid var(--primary-color);
 }
 
 .profile-photo:hover {
     transform: scale(1.05);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
 }
 
 .hero-text {
@@ -265,7 +275,10 @@ body.dark-mode footer {
     text-decoration: none;
     font-weight: 500;
     transform: translateY(0);
-    transition: all 0.2s ease-out;
+    transition:
+        transform 0.2s ease-out,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease !important;
     gap: 0.5rem;
     will-change: transform, background-color, box-shadow;
 }
@@ -278,6 +291,7 @@ body.dark-mode footer {
 .github:hover {
     background-color: #1a1e22;
     transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .linkedin {
@@ -288,6 +302,7 @@ body.dark-mode footer {
 .linkedin:hover {
     background-color: #005885;
     transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .cv-button {
@@ -303,7 +318,7 @@ body.dark-mode footer {
     transform: translateY(0);
     transition:
         transform 0.2s ease-out,
-        box-shadow 0.2s ease-out;
+        box-shadow 0.2s ease-out !important;
     box-shadow: 0 4px 10px rgba(0, 102, 204, 0.3);
     will-change: transform, box-shadow;
 }
@@ -322,7 +337,7 @@ body.dark-mode footer {
     padding: 1rem 0;
     transition:
         background-color var(--transition-speed) ease,
-        box-shadow var(--transition-speed) ease;
+        box-shadow var(--transition-speed) ease !important;
 }
 
 nav ul {
@@ -335,7 +350,9 @@ nav ul {
 nav ul li a {
     text-decoration: none;
     font-weight: 500;
-    transition: color 0.2s ease;
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease !important;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -413,8 +430,11 @@ section {
     text-decoration: none;
     position: relative;
     transform: translateY(0);
-    transition: transform 0.2s ease-out;
+    transition:
+        transform 0.2s ease-out,
+        color 0.2s ease !important;
     will-change: transform;
+    display: inline-block;
 }
 
 .about-content a:hover {
@@ -455,7 +475,7 @@ section {
     transition:
         transform 0.2s ease-out,
         box-shadow 0.2s ease-out,
-        background-color 0.2s ease;
+        background-color 0.2s ease !important;
     will-change: transform, box-shadow;
 }
 
@@ -501,7 +521,7 @@ section {
     transition:
         transform 0.2s ease-out,
         box-shadow 0.2s ease-out,
-        background-color 0.2s ease;
+        background-color 0.2s ease !important;
     will-change: transform, box-shadow;
 }
 
@@ -515,24 +535,29 @@ section {
     display: flex;
     align-items: center;
     gap: 1rem;
+    transition: background-color 0.2s ease !important;
 }
 
 .card-header i {
     font-size: 1.5rem;
+    transition: color 0.2s ease !important;
 }
 
 .card-header h3 {
     font-weight: 600;
+    transition: color 0.2s ease !important;
 }
 
 .card-content {
     padding: 1.2rem;
+    transition: background-color 0.2s ease !important;
 }
 
 .project-organization {
     font-weight: 500;
     margin-bottom: 0.5rem;
     color: var(--primary-color);
+    transition: color 0.2s ease !important;
 }
 
 /* Skills Section */
@@ -547,6 +572,7 @@ section {
     margin-bottom: 1rem;
     position: relative;
     display: inline-block;
+    transition: color 0.2s ease !important;
 }
 
 .skills-category h3::after {
@@ -557,6 +583,7 @@ section {
     bottom: -5px;
     left: 0;
     background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    transition: background 0.2s ease !important;
 }
 
 .skills-grid {
@@ -575,11 +602,11 @@ section {
     font-weight: 500;
     transform: translateY(0);
     transition:
-        transform 0.2s ease-out,
-        box-shadow 0.2s ease-out,
-        background-color 0.2s ease;
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease !important;
     will-change: transform, box-shadow;
-    cursor: default;
+    cursor: default; /* Changed from pointer to default */
 }
 
 .skill-item:hover {
@@ -589,6 +616,7 @@ section {
 
 .skill-item i {
     color: var(--primary-color);
+    transition: color 0.2s ease !important;
 }
 
 /* Contact Section */
@@ -620,7 +648,7 @@ section {
     transform: translateY(0);
     transition:
         transform 0.2s ease-out,
-        box-shadow 0.2s ease-out;
+        box-shadow 0.2s ease-out !important;
     box-shadow: 0 4px 10px rgba(0, 102, 204, 0.3);
     will-change: transform, box-shadow;
 }
@@ -639,12 +667,18 @@ section {
 .contact-illustration {
     max-width: 75%;
     border-radius: var(--border-radius);
+    transition: transform 0.2s ease !important;
+}
+
+.contact-illustration:hover {
+    transform: scale(1.02);
 }
 
 /* Footer */
 footer {
     padding: 3rem 2rem 1.5rem;
     margin-top: 2rem;
+    transition: background-color 0.2s ease !important;
 }
 
 .footer-content {
@@ -659,6 +693,7 @@ footer {
 .footer-logo h3 {
     font-size: 1.5rem;
     margin-bottom: 0.3rem;
+    transition: color 0.2s ease !important;
 }
 
 .footer-social {
@@ -671,19 +706,21 @@ footer {
     transform: translateY(0);
     transition:
         transform 0.2s ease-out,
-        color 0.2s ease;
+        color 0.2s ease !important;
     will-change: transform;
     display: inline-block;
 }
 
 .footer-social a:hover {
     transform: translateY(-3px);
+    color: var(--primary-color);
 }
 
 .footer-bottom {
     text-align: center;
     padding-top: 1.5rem;
     border-top: 1px solid rgba(128, 128, 128, 0.2);
+    transition: border-color 0.2s ease !important;
 }
 
 /* ========== RESPONSIVE DESIGN ========== */
