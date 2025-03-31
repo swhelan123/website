@@ -2,9 +2,10 @@
 const themeSwitch = document.getElementById("theme-switch");
 const body = document.body;
 
-// Check for saved theme preference or default to light mode
+// Check for saved theme preference or use system preference
 const savedTheme = localStorage.getItem("theme");
 if (savedTheme) {
+  // Apply saved theme
   if (savedTheme === "dark") {
     body.classList.remove("light-mode");
     body.classList.add("dark-mode");
@@ -13,6 +14,19 @@ if (savedTheme) {
     body.classList.remove("dark-mode");
     body.classList.add("light-mode");
     themeSwitch.checked = true;
+  }
+} else {
+  // If no saved preference, check system preference
+  if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    body.classList.remove("light-mode");
+    body.classList.add("dark-mode");
+    themeSwitch.checked = false;
+    localStorage.setItem("theme", "dark");
+  } else {
+    body.classList.remove("dark-mode");
+    body.classList.add("light-mode");
+    themeSwitch.checked = true;
+    localStorage.setItem("theme", "light");
   }
 }
 
