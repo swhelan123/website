@@ -311,3 +311,66 @@ skillItems.forEach((item) => {
     item.style.boxShadow = "";
   });
 });
+
+// Header behavior
+document.addEventListener("DOMContentLoaded", function () {
+  const header = document.querySelector(".sticky-header");
+  const headerHeight = header.offsetHeight;
+  const hero = document.querySelector(".hero");
+  const heroHeight = hero.offsetHeight;
+
+  // Calculate where the header should start sticking
+  const stickyPoint = heroHeight - headerHeight;
+
+  // Set initial position based on scroll position
+  function updateHeaderPosition() {
+    if (window.scrollY >= stickyPoint) {
+      header.classList.add("scrolled");
+    } else {
+      header.classList.remove("scrolled");
+    }
+  }
+
+  // Initial check
+  updateHeaderPosition();
+
+  // Listen for scroll events
+  window.addEventListener("scroll", updateHeaderPosition);
+});
+
+// Add smooth scrolling with header offset
+document.addEventListener("DOMContentLoaded", function () {
+  const header = document.querySelector(".sticky-header");
+  const headerHeight = header.offsetHeight;
+
+  // Add scroll-padding dynamically based on header height
+  document.documentElement.style.setProperty("--scroll-padding", headerHeight + 20 + "px");
+
+  // Get all anchor links that point to sections on the page
+  const anchorLinks = document.querySelectorAll('a[href^="#"]:not([href="#"])');
+
+  anchorLinks.forEach((link) => {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+
+      // Get the target section
+      const targetId = this.getAttribute("href");
+      const targetSection = document.querySelector(targetId);
+
+      if (targetSection) {
+        // Calculate position accounting for header
+        const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = targetPosition - headerHeight - 20; // Extra 20px for breathing room
+
+        // Smooth scroll to the target
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+
+        // Optionally update URL
+        history.pushState(null, null, targetId);
+      }
+    });
+  });
+});
