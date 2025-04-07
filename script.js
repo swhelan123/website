@@ -43,55 +43,116 @@ themeSwitch.addEventListener("change", () => {
   }
 });
 
-// Smooth scrolling for navigation links
-document.querySelectorAll('nav a[href^="#"]').forEach((anchor) => {
-  anchor.addEventListener("click", function (e) {
-    e.preventDefault();
-    const targetId = this.getAttribute("href");
-    const targetElement = document.querySelector(targetId);
+// Header behavior
+document.addEventListener("DOMContentLoaded", function () {
+  const header = document.querySelector(".sticky-header");
+  const headerHeight = header.offsetHeight;
+  const hero = document.querySelector(".hero");
+  const heroHeight = hero.offsetHeight;
 
-    window.scrollTo({
-      top: targetElement.offsetTop - 70, // Account for header height
-      behavior: "smooth",
+  // Calculate where the header should start sticking
+  const stickyPoint = heroHeight - headerHeight;
+
+  // Set initial position based on scroll position
+  function updateHeaderPosition() {
+    if (window.scrollY >= stickyPoint) {
+      header.classList.add("scrolled");
+    } else {
+      header.classList.remove("scrolled");
+    }
+  }
+
+  // Initial check
+  updateHeaderPosition();
+
+  // Listen for scroll events
+  window.addEventListener("scroll", updateHeaderPosition);
+
+  // Add scroll-padding dynamically based on header height
+  document.documentElement.style.setProperty("--scroll-padding", headerHeight + 20 + "px");
+
+  // Get all anchor links that point to sections on the page
+  const anchorLinks = document.querySelectorAll('a[href^="#"]:not([href="#"])');
+
+  anchorLinks.forEach((link) => {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+
+      // Get the target section
+      const targetId = this.getAttribute("href");
+      const targetSection = document.querySelector(targetId);
+
+      if (targetSection) {
+        // Calculate position accounting for header
+        const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = targetPosition - headerHeight - 20; // Extra 20px for breathing room
+
+        // Smooth scroll to the target
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+
+        // Optionally update URL
+        history.pushState(null, null, targetId);
+      }
     });
   });
-});
 
-// Add active class to nav links based on scroll position
-const sections = document.querySelectorAll("section[id]");
-const navLinks = document.querySelectorAll("nav ul li a");
+  // Improved active section detection
+  // Get all sections that have an ID defined
+  const sections = document.querySelectorAll("section[id]");
 
-function highlightNavOnScroll() {
-  const scrollPosition = window.scrollY;
+  // Get all nav items with href values matching section IDs
+  const navLinks = document.querySelectorAll("nav ul li a");
 
-  sections.forEach((section) => {
-    const sectionTop = section.offsetTop - 100;
-    const sectionHeight = section.offsetHeight;
-    const sectionId = section.getAttribute("id");
+  // Function to determine which section is currently in view
+  function highlightActiveSection() {
+    // Get current scroll position
+    let scrollY = window.pageYOffset;
 
-    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+    // Loop through sections to find the one currently in view
+    sections.forEach((current) => {
+      const sectionHeight = current.offsetHeight;
+      const sectionTop = current.offsetTop - headerHeight - 50; // Subtract header height plus buffer
+      const sectionId = current.getAttribute("id");
+
+      // Check if scroll position is within this section
+      if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+        // First remove active class from all links
+        navLinks.forEach((link) => {
+          link.classList.remove("active");
+        });
+
+        // Add active class to corresponding nav link
+        const activeLink = document.querySelector(`nav ul li a[href="#${sectionId}"]`);
+        if (activeLink) {
+          activeLink.classList.add("active");
+        }
+      }
+    });
+
+    // Special case for when we're at the top of the page
+    if (scrollY < 100 && sections.length > 0) {
+      const firstSection = sections[0];
+      const firstSectionId = firstSection.getAttribute("id");
+
       navLinks.forEach((link) => {
         link.classList.remove("active");
-        if (link.getAttribute("href") === `#${sectionId}`) {
-          link.classList.add("active");
-        }
       });
+
+      const firstLink = document.querySelector(`nav ul li a[href="#${firstSectionId}"]`);
+      if (firstLink) {
+        firstLink.classList.add("active");
+      }
     }
-  });
-}
-
-// Initialize nav highlighting
-window.addEventListener("scroll", highlightNavOnScroll);
-highlightNavOnScroll();
-
-// Add a class to header when scrolled
-const header = document.querySelector(".sticky-header");
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 100) {
-    header.classList.add("scrolled");
-  } else {
-    header.classList.remove("scrolled");
   }
+
+  // Run on load
+  highlightActiveSection();
+
+  // Run on scroll
+  window.addEventListener("scroll", highlightActiveSection);
 });
 
 // Typing Animation for Roles with realistic cursor behavior
@@ -295,82 +356,5 @@ function applyHoverEffects() {
   }
 }
 
-// Skill items hover effect
-const skillItems = document.querySelectorAll(".skill-item");
-skillItems.forEach((item) => {
-  // Remove any inline cursor style that might be set
-  item.style.cursor = "default";
-
-  item.addEventListener("mouseenter", () => {
-    item.style.transform = "translateY(-3px)";
-    item.style.boxShadow = "0 5px 15px rgba(0, 0, 0, 0.08)";
-  });
-
-  item.addEventListener("mouseleave", () => {
-    item.style.transform = "translateY(0)";
-    item.style.boxShadow = "";
-  });
-});
-
-// Header behavior
-document.addEventListener("DOMContentLoaded", function () {
-  const header = document.querySelector(".sticky-header");
-  const headerHeight = header.offsetHeight;
-  const hero = document.querySelector(".hero");
-  const heroHeight = hero.offsetHeight;
-
-  // Calculate where the header should start sticking
-  const stickyPoint = heroHeight - headerHeight;
-
-  // Set initial position based on scroll position
-  function updateHeaderPosition() {
-    if (window.scrollY >= stickyPoint) {
-      header.classList.add("scrolled");
-    } else {
-      header.classList.remove("scrolled");
-    }
-  }
-
-  // Initial check
-  updateHeaderPosition();
-
-  // Listen for scroll events
-  window.addEventListener("scroll", updateHeaderPosition);
-});
-
-// Add smooth scrolling with header offset
-document.addEventListener("DOMContentLoaded", function () {
-  const header = document.querySelector(".sticky-header");
-  const headerHeight = header.offsetHeight;
-
-  // Add scroll-padding dynamically based on header height
-  document.documentElement.style.setProperty("--scroll-padding", headerHeight + 20 + "px");
-
-  // Get all anchor links that point to sections on the page
-  const anchorLinks = document.querySelectorAll('a[href^="#"]:not([href="#"])');
-
-  anchorLinks.forEach((link) => {
-    link.addEventListener("click", function (e) {
-      e.preventDefault();
-
-      // Get the target section
-      const targetId = this.getAttribute("href");
-      const targetSection = document.querySelector(targetId);
-
-      if (targetSection) {
-        // Calculate position accounting for header
-        const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset;
-        const offsetPosition = targetPosition - headerHeight - 20; // Extra 20px for breathing room
-
-        // Smooth scroll to the target
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth",
-        });
-
-        // Optionally update URL
-        history.pushState(null, null, targetId);
-      }
-    });
-  });
-});
+// Apply hover effects on page load
+document.addEventListener("DOMContentLoaded", applyHoverEffects);
