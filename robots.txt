@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://shane-whelan.ie/sitemap.xml
