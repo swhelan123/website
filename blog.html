@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <!-- Primary Meta Tags -->
+        <title>Shane Whelan | Blog</title>
+        <meta name="title" content="Shane Whelan | Blog & Project Details" />
+        <meta
+            name="description"
+            content="Blog and detailed project showcase of Shane Whelan, Computer Science student at UCD, Powertrain Engineer at UCD Formula Student, and Co-founder of StudyMate."
+        />
+        <meta name="author" content="Shane Whelan" />
+        <meta name="keywords" content="Shane Whelan, Blog, Project Details, Computer Science, UCD, University College Dublin, Powertrain Engineer, Formula Student, SmartCert, StudyMate, Ireland" />
+
+        <!-- Canonical URL -->
+        <link rel="canonical" href="https://shane-whelan.ie/blog.html" />
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://shane-whelan.ie/blog.html" />
+        <meta property="og:title" content="Shane Whelan | Blog & Project Details" />
+        <meta
+            property="og:description"
+            content="Blog and detailed project showcase of Shane Whelan, Computer Science student at UCD, Powertrain Engineer at UCD Formula Student, and Co-founder of StudyMate."
+        />
+        <meta property="og:image" content="https://shane-whelan.ie/og-image.jpg" />
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://shane-whelan.ie/blog.html" />
+        <meta property="twitter:title" content="Shane Whelan | Blog & Project Details" />
+        <meta
+            property="twitter:description"
+            content="Blog and detailed project showcase of Shane Whelan, Computer Science student at UCD, Powertrain Engineer at UCD Formula Student, and Co-founder of StudyMate."
+        />
+        <meta property="twitter:image" content="https://shane-whelan.ie/twitter-image.jpg" />
+
+        <!-- Favicon and App Icons -->
+        <link rel="icon" type="image/png" href="icon.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+        <link rel="manifest" href="site.webmanifest" />
+        <meta name="theme-color" content="#ffffff" />
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+        <!-- Stylesheets -->
+        <link rel="stylesheet" href="styles.css" />
+        <link rel="stylesheet" href="blog-styles.css" />
+
+        <!-- Scripts -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    </head>
+    <body class="light-mode">
+        <div class="theme-toggle">
+            <input type="checkbox" id="theme-switch" checked />
+            <label for="theme-switch" class="toggle-label">
+                <i class="fas fa-sun light-icon"></i>
+                <i class="fas fa-moon dark-icon"></i>
+            </label>
+        </div>
+
+        <!-- Blog Header Section -->
+        <section class="blog-hero">
+            <div class="blog-hero-content">
+                <h1>My Blog & Projects</h1>
+                <p>Deep dives into my projects, thoughts on tech, and learning experiences</p>
+            </div>
+        </section>
+
+        <!-- Navigation -->
+        <header class="sticky-header scrolled">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                    </li>
+                    <li>
+                        <a href="blog.html" class="active"><i class="fas fa-blog"></i> Blog</a>
+                    </li>
+                    <!-- Categories for blog filtering -->
+                    <li>
+                        <a href="#" class="category-filter" data-category="all"><i class="fas fa-th"></i> All Posts</a>
+                    </li>
+                    <li>
+                        <a href="#" class="category-filter" data-category="projects"><i class="fas fa-code-branch"></i> Projects</a>
+                    </li>
+                    <li>
+                        <a href="#" class="category-filter" data-category="tech"><i class="fas fa-microchip"></i> Tech</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="blog-main">
+            <!-- Blog Content -->
+            <div class="blog-container">
+                <!-- Featured Post -->
+                <div class="featured-post">
+                    <div class="featured-post-image">
+                        <img src="blog/ev-telemetry.jpg" alt="EV Telemetry System" />
+                        <div class="post-category projects">Project</div>
+                    </div>
+                    <div class="featured-post-content">
+                        <h2>EV Telemetry System: Building Real-time Data Acquisition for Racing</h2>
+                        <p class="post-meta">April 15, 2025 · 10 min read</p>
+                        <p class="post-excerpt">
+                            A deep dive into how I built a comprehensive telemetry system for UCD Formula Student's electric race car, combining Arduino sensors, Python data processing, and real-time
+                            visualization.
+                        </p>
+                        <a href="blog/ev-telemetry.html" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Blog Posts Grid -->
+                <div class="blog-grid">
+                    <!-- Post 1 -->
+                    <div class="blog-card" data-category="projects">
+                        <div class="blog-card-image">
+                            <img src="blog/studymate.jpg" alt="StudyMate" />
+                            <div class="post-category projects">Project</div>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Rebranding SmartCert to StudyMate: The Evolution</h3>
+                            <p class="post-meta">April 10, 2025 · 6 min read</p>
+                            <p class="post-excerpt">The story behind our educational platform's transition from SmartCert to StudyMate, with insights into our development process and future plans.</p>
+                            <a href="blog/studymate-rebranding.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Post 2 -->
+                    <div class="blog-card" data-category="tech">
+                        <div class="blog-card-image">
+                            <img src="blog/python-arduino.jpg" alt="Python and Arduino" />
+                            <div class="post-category tech">Tech</div>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Python + Arduino: Building Robust IoT Systems</h3>
+                            <p class="post-meta">April 5, 2025 · 8 min read</p>
+                            <p class="post-excerpt">A technical guide on integrating Python and Arduino for powerful IoT applications, with code examples and best practices from my experience.</p>
+                            <a href="blog/python-arduino-integration.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Post 3 -->
+                    <div class="blog-card" data-category="projects">
+                        <div class="blog-card-image">
+                            <img src="blog/algo-visualizer.jpg" alt="Algorithm Visualizer" />
+                            <div class="post-category projects">Project</div>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Building an Interactive Algorithm Visualizer</h3>
+                            <p class="post-meta">March 25, 2025 · 7 min read</p>
+                            <p class="post-excerpt">How I designed and implemented an educational tool to help students understand complex algorithms through visual representations.</p>
+                            <a href="blog/algorithm-visualizer.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Post 4 -->
+                    <div class="blog-card" data-category="tech">
+                        <div class="blog-card-image">
+                            <img src="blog/responsive-design.jpg" alt="Responsive Web Design" />
+                            <div class="post-category tech">Tech</div>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Responsive Design Principles for Modern Websites</h3>
+                            <p class="post-meta">March 15, 2025 · 5 min read</p>
+                            <p class="post-excerpt">Lessons learned from building responsive websites that work seamlessly across all devices, with practical CSS techniques.</p>
+                            <a href="blog/responsive-design.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <span class="page-number current">1</span>
+                    <a href="blog-page2.html" class="page-number">2</a>
+                    <a href="blog-page2.html" class="next-page">Next <i class="fas fa-chevron-right"></i></a>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Shane Whelan</h3>
+                    <p>Computer Science Student & Engineer</p>
+                </div>
+                <div class="footer-social">
+                    <a href="https://github.com/swhelan123"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/shane-whelan-364988291/"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Shane Whelan. All rights reserved.</p>
+            </div>
+        </footer>
+
+        <script src="script.js"></script>
+        <script src="blog-script.js"></script>
+    </body>
+</html>

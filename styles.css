@@ -925,3 +925,38 @@ nav ul li a.active::after {
 html {
     scroll-padding-top: 70px; /* Adjust this value to match your header height */
 }
+
+/* Project Links Styling */
+.project-links {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.8rem;
+}
+
+.project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    background-color: rgba(231, 76, 60, 0.1);
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+body.dark-mode .project-link {
+    background-color: rgba(9, 132, 227, 0.1);
+    color: var(--accent-color);
+}
+
+.project-link:hover {
+    transform: translateY(-2px);
+    background-color: rgba(231, 76, 60, 0.2);
+}
+
+body.dark-mode .project-link:hover {
+    background-color: rgba(9, 132, 227, 0.2);
+}
