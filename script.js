@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Loop through sections to find the one currently in view
     sections.forEach((current) => {
       const sectionHeight = current.offsetHeight;
-      const sectionTop = current.offsetTop - headerHeight - 50; // Subtract header height plus buffer
+      const sectionTop = current.offsetTop - headerHeight; // Subtract header height plus buffer
       const sectionId = current.getAttribute("id");
 
       // Check if scroll position is within this section
@@ -124,11 +124,11 @@ document.addEventListener("DOMContentLoaded", function () {
           link.classList.remove("active");
         });
 
-        // Add active class to corresponding nav link
-        const activeLink = document.querySelector(`nav ul li a[href="#${sectionId}"]`);
-        if (activeLink) {
-          activeLink.classList.add("active");
-        }
+        // // Add active class to corresponding nav link
+        // const activeLink = document.querySelector(`nav ul li a[href="#${sectionId}"]`);
+        // if (activeLink) {
+        //   activeLink.classList.add("active");
+        // }
       }
     });
 
