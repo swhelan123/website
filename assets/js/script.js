@@ -110,38 +110,43 @@ document.addEventListener("DOMContentLoaded", function () {
   function highlightActiveSection() {
     // Get current scroll position
     let scrollY = window.pageYOffset;
+    let currentActiveFound = false; // Flag to track if an active section is found
 
     // Loop through sections to find the one currently in view
     sections.forEach((current) => {
       const sectionHeight = current.offsetHeight;
-      const sectionTop = current.offsetTop - headerHeight; // Subtract header height plus buffer
+      // Adjust sectionTop calculation to better align with when section enters viewport
+      const sectionTop = current.offsetTop - headerHeight - 50; // Consider header height and a small buffer
       const sectionId = current.getAttribute("id");
 
-      // Check if scroll position is within this section
-      if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-        // First remove active class from all links
+      // Check if scroll position is within this section's visible area
+      if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+        // Remove active class from all links first
         navLinks.forEach((link) => {
           link.classList.remove("active");
         });
 
-        // // Add active class to corresponding nav link
-        // const activeLink = document.querySelector(`nav ul li a[href="#${sectionId}"]`);
-        // if (activeLink) {
-        //   activeLink.classList.add("active");
-        // }
+        // Add active class to corresponding nav link
+        const activeLink = document.querySelector(`nav ul li a[href="#${sectionId}"]`);
+        if (activeLink) {
+          activeLink.classList.add("active");
+          currentActiveFound = true; // Mark that we found the active section
+        }
       }
     });
 
-    // Special case for when we're at the top of the page
-    if (scrollY < 100 && sections.length > 0) {
-      const firstSection = sections[0];
-      const firstSectionId = firstSection.getAttribute("id");
-
-      navLinks.forEach((link) => {
-        link.classList.remove("active");
-      });
-
-      const firstLink = document.querySelector(`nav ul li a[href="#${firstSectionId}"]`);
+    // If scrolled to the very top or no section matched, potentially highlight the first link
+    if (!currentActiveFound && scrollY < heroHeight / 2 && sections.length > 0) {
+      // Check if near the top
+      navLinks.forEach((link) => link.classList.remove("active")); // Clear all active states
+      const firstLink = document.querySelector('nav ul li a[href="#about"]'); // Directly target 'about' link
+      if (firstLink) {
+        firstLink.classList.add("active");
+      }
+    } else if (!currentActiveFound && scrollY === 0) {
+      // Explicitly handle being exactly at the top
+      navLinks.forEach((link) => link.classList.remove("active"));
+      const firstLink = document.querySelector('nav ul li a[href="#about"]');
       if (firstLink) {
         firstLink.classList.add("active");
       }
@@ -178,6 +183,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function typeRole() {
+    // Ensure elements exist before proceeding
+    if (!typingTextElement || !cursorElement) {
+      console.error("Typing animation elements not found.");
+      return;
+    }
+
     const currentRole = roles[roleIndex];
 
     // Stop cursor blinking during typing/deleting
@@ -198,12 +209,20 @@ document.addEventListener("DOMContentLoaded", () => {
     // If finished typing the current role
     if (!isDeleting && charIndex === currentRole.length) {
       // Pause before starting to delete - cursor should blink during pause
-      isDeleting = false;
+      isDeleting = false; // Ensure isDeleting is false here
       typingSpeed = 1500; // Pause at the end of typing
       startCursorBlink();
+      // Use setTimeout to delay setting isDeleting to true
       setTimeout(() => {
         isDeleting = true;
-      }, typingSpeed);
+        // Call typeRole again immediately after setting isDeleting to start deleting process
+        // without waiting for the next main timeout cycle
+        if (charIndex > 0) {
+          // Only start deleting if there's text
+          setTimeout(typeRole, 50); // Short delay before starting deletion
+        }
+      }, typingSpeed); // Wait for the pause duration
+      return; // Prevent the default setTimeout at the end of this block for this cycle
     }
     // If finished deleting the current role
     else if (isDeleting && charIndex < 0) {
@@ -214,6 +233,7 @@ document.addEventListener("DOMContentLoaded", () => {
       startCursorBlink();
     }
 
+    // Schedule the next call to typeRole
     setTimeout(typeRole, typingSpeed);
   }
 
@@ -317,18 +337,14 @@ function applyHoverEffects() {
     });
   });
 
-  // Email button hover effect
-  const emailButton = document.querySelector(".email-button");
-  if (emailButton) {
-    emailButton.addEventListener("mouseenter", () => {
-      emailButton.style.transform = "translateY(-3px)";
-      emailButton.style.boxShadow = "0 6px 15px rgba(0, 102, 204, 0.4)";
-    });
+  // Email button hover effect (This was for the mailto link, might remove or repurpose)
+  // const emailButton = document.querySelector(".email-button");
+  // if (emailButton) { ... }
 
-    emailButton.addEventListener("mouseleave", () => {
-      emailButton.style.transform = "translateY(0)";
-      emailButton.style.boxShadow = "0 4px 10px rgba(0, 102, 204, 0.3)";
-    });
+  // Submit button hover effect (if needed, handled by CSS but JS can add/remove classes too)
+  const submitButton = document.querySelector(".submit-button");
+  if (submitButton) {
+    // Example: Add effect on mouseenter if not purely CSS-driven
   }
 
   // About content links hover effect
@@ -358,3 +374,77 @@ function applyHoverEffects() {
 
 // Apply hover effects on page load
 document.addEventListener("DOMContentLoaded", applyHoverEffects);
+
+// =============================================
+// == NEW: AJAX Contact Form Submission Logic ==
+// =============================================
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("contact-form");
+  const formStatus = document.getElementById("form-status");
+  const submitButton = form.querySelector(".submit-button"); // Get the submit button
+
+  if (form) {
+    form.addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent the default form submission
+
+      const formData = new FormData(form);
+      const submitButtonOriginalText = submitButton.innerHTML; // Store original button text
+
+      // Show loading state
+      formStatus.innerHTML = "Sending...";
+      formStatus.className = "form-status sending"; // Add class for styling
+      submitButton.disabled = true; // Disable button while sending
+      submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...'; // Update button text
+
+      fetch(form.action, {
+        method: form.method,
+        body: formData,
+        headers: {
+          Accept: "application/json", // Important for Formspree to send JSON response
+        },
+      })
+        .then((response) => {
+          if (response.ok) {
+            // Success!
+            formStatus.innerHTML = "Thanks for your message! I'll get back to you soon.";
+            formStatus.className = "form-status success"; // Add class for styling
+            form.reset(); // Clear the form fields
+            submitButton.disabled = false; // Re-enable button
+            submitButton.innerHTML = submitButtonOriginalText; // Restore original button text
+          } else {
+            // Error from Formspree (e.g., validation error)
+            response
+              .json()
+              .then((data) => {
+                let errorMessage = "Oops! There was a problem submitting your form.";
+                if (data.errors && data.errors.length > 0) {
+                  // Use Formspree's specific error message if available
+                  errorMessage = data.errors.map((error) => error.message).join(", ");
+                }
+                formStatus.innerHTML = errorMessage;
+                formStatus.className = "form-status error"; // Add class for styling
+                submitButton.disabled = false; // Re-enable button
+                submitButton.innerHTML = submitButtonOriginalText; // Restore original button text
+              })
+              .catch(() => {
+                // Fallback error if parsing JSON fails
+                formStatus.innerHTML = "Oops! There was a problem submitting your form. Please try again.";
+                formStatus.className = "form-status error";
+                submitButton.disabled = false;
+                submitButton.innerHTML = submitButtonOriginalText;
+              });
+          }
+        })
+        .catch((error) => {
+          // Network error or other fetch issue
+          console.error("Fetch Error:", error);
+          formStatus.innerHTML = "Oops! There was a network error. Please check your connection and try again.";
+          formStatus.className = "form-status error"; // Add class for styling
+          submitButton.disabled = false; // Re-enable button
+          submitButton.innerHTML = submitButtonOriginalText; // Restore original button text
+        });
+    });
+  } else {
+    console.warn("Contact form with ID 'contact-form' not found.");
+  }
+});

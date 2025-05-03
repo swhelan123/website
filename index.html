@@ -326,9 +326,35 @@
                     <div class="section-line"></div>
                 </div>
                 <div class="contact-content">
-                    <div class="contact-info">
-                        <p>Interested in hiring me or have any other questions? Drop me an email:</p>
-                        <a href="mailto:contact@shane-whelan.ie" class="email-button"> <i class="fas fa-envelope"></i> contact@shane-whelan.ie </a>
+                    <div class="contact-form">
+                        <p>Interested in hiring me or have any other questions? Fill out the form below:</p>
+                        <form id="contact-form" action="https://formspree.io/f/xblogyjv" method="POST" novalidate>
+                            <input type="hidden" name="_subject" value="New Contact Form Submission from shane-whelan.ie" />
+
+                            <div class="form-group">
+                                <label for="name" class="form-label">Your Name:</label>
+                                <input type="text" id="name" name="name" class="form-control" placeholder="Enter your name" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" class="form-label">Your Email:</label>
+                                <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email address" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="subject" class="form-label">Subject:</label>
+                                <input type="text" id="subject" name="_subject" class="form-control" placeholder="Enter the subject" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message" class="form-label">Your Message:</label>
+                                <textarea id="message" name="message" class="form-control" rows="5" placeholder="Type your message here..." required></textarea>
+                            </div>
+
+                            <button type="submit" class="submit-button"><i class="fas fa-paper-plane"></i> Send Message</button>
+
+                            <div id="form-status" class="form-status" aria-live="polite"></div>
+                        </form>
                     </div>
                     <div class="contact-image">
                         <img src="assets/images/contact.png" alt="Contact illustration" class="contact-illustration" />
