@@ -43,8 +43,9 @@ themeSwitch.addEventListener("change", () => {
   }
 });
 
-// Header behavior
+// Main DOMContentLoaded event handler - consolidating all functionality
 document.addEventListener("DOMContentLoaded", function () {
+  // Header behavior
   const header = document.querySelector(".sticky-header");
   const headerHeight = header.offsetHeight;
   const hero = document.querySelector(".hero");
@@ -99,52 +100,39 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Improved active section detection
-  // Get all sections that have an ID defined
+  // Active section detection
   const sections = document.querySelectorAll("section[id]");
-
-  // Get all nav items with href values matching section IDs
   const navLinks = document.querySelectorAll("nav ul li a");
 
-  // Function to determine which section is currently in view
   function highlightActiveSection() {
-    // Get current scroll position
     let scrollY = window.pageYOffset;
-    let currentActiveFound = false; // Flag to track if an active section is found
+    let currentActiveFound = false;
 
-    // Loop through sections to find the one currently in view
     sections.forEach((current) => {
       const sectionHeight = current.offsetHeight;
-      // Adjust sectionTop calculation to better align with when section enters viewport
-      const sectionTop = current.offsetTop - headerHeight - 50; // Consider header height and a small buffer
+      const sectionTop = current.offsetTop - headerHeight - 50;
       const sectionId = current.getAttribute("id");
 
-      // Check if scroll position is within this section's visible area
       if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-        // Remove active class from all links first
         navLinks.forEach((link) => {
           link.classList.remove("active");
         });
 
-        // Add active class to corresponding nav link
         const activeLink = document.querySelector(`nav ul li a[href="#${sectionId}"]`);
         if (activeLink) {
           activeLink.classList.add("active");
-          currentActiveFound = true; // Mark that we found the active section
+          currentActiveFound = true;
         }
       }
     });
 
-    // If scrolled to the very top or no section matched, potentially highlight the first link
     if (!currentActiveFound && scrollY < heroHeight / 2 && sections.length > 0) {
-      // Check if near the top
-      navLinks.forEach((link) => link.classList.remove("active")); // Clear all active states
-      const firstLink = document.querySelector('nav ul li a[href="#about"]'); // Directly target 'about' link
+      navLinks.forEach((link) => link.classList.remove("active"));
+      const firstLink = document.querySelector('nav ul li a[href="#about"]');
       if (firstLink) {
         firstLink.classList.add("active");
       }
     } else if (!currentActiveFound && scrollY === 0) {
-      // Explicitly handle being exactly at the top
       navLinks.forEach((link) => link.classList.remove("active"));
       const firstLink = document.querySelector('nav ul li a[href="#about"]');
       if (firstLink) {
@@ -153,95 +141,90 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Run on load
+  // Run on load and scroll
   highlightActiveSection();
-
-  // Run on scroll
   window.addEventListener("scroll", highlightActiveSection);
+
+  // Apply hover effects
+  applyHoverEffects();
+
+  // Initialize contact form functionality
+  initializeContactForm();
+
+  // Initialize timeline animation
+  initializeTimelineAnimation();
+
+  // Initialize stats counter
+  initializeStatsCounter();
+
+  // Initialize typing animation
+  initializeTypingAnimation();
 });
 
-// Typing Animation for Roles with realistic cursor behavior
-document.addEventListener("DOMContentLoaded", () => {
+// Typing Animation for Roles
+function initializeTypingAnimation() {
   const typingTextElement = document.querySelector(".typing-text");
   const cursorElement = document.querySelector(".cursor");
   const roles = ["Computer Scientist", "Software Engineer", "Powertrain Engineer", "Web Developer"];
 
+  if (!typingTextElement || !cursorElement) {
+    return; // Elements not found
+  }
+
   let roleIndex = 0;
   let charIndex = 0;
   let isDeleting = false;
-  let typingSpeed = 100; // Base typing speed
+  let typingSpeed = 100;
 
-  // Stop cursor blinking during typing
   function stopCursorBlink() {
     cursorElement.style.opacity = "1";
     cursorElement.style.animation = "none";
   }
 
-  // Start cursor blinking during pauses
   function startCursorBlink() {
     cursorElement.style.animation = "blink 0.7s infinite";
   }
 
   function typeRole() {
-    // Ensure elements exist before proceeding
-    if (!typingTextElement || !cursorElement) {
-      console.error("Typing animation elements not found.");
-      return;
-    }
-
     const currentRole = roles[roleIndex];
-
-    // Stop cursor blinking during typing/deleting
     stopCursorBlink();
 
     if (isDeleting) {
-      // Deleting text
       typingTextElement.textContent = currentRole.substring(0, charIndex);
       charIndex--;
-      typingSpeed = 50; // Faster when deleting
+      typingSpeed = 50;
     } else {
-      // Typing text
       typingTextElement.textContent = currentRole.substring(0, charIndex + 1);
       charIndex++;
-      typingSpeed = 100; // Normal speed when typing
+      typingSpeed = 100;
     }
 
-    // If finished typing the current role
     if (!isDeleting && charIndex === currentRole.length) {
-      // Pause before starting to delete - cursor should blink during pause
-      isDeleting = false; // Ensure isDeleting is false here
-      typingSpeed = 1500; // Pause at the end of typing
+      isDeleting = false;
+      typingSpeed = 1500;
       startCursorBlink();
-      // Use setTimeout to delay setting isDeleting to true
       setTimeout(() => {
         isDeleting = true;
-        // Call typeRole again immediately after setting isDeleting to start deleting process
-        // without waiting for the next main timeout cycle
         if (charIndex > 0) {
-          // Only start deleting if there's text
-          setTimeout(typeRole, 50); // Short delay before starting deletion
+          setTimeout(typeRole, 50);
         }
-      }, typingSpeed); // Wait for the pause duration
-      return; // Prevent the default setTimeout at the end of this block for this cycle
-    }
-    // If finished deleting the current role
-    else if (isDeleting && charIndex < 0) {
+      }, typingSpeed);
+      return;
+    } else if (isDeleting && charIndex < 0) {
       isDeleting = false;
-      roleIndex = (roleIndex + 1) % roles.length; // Move to next role
-      charIndex = 0; // Reset character index
-      typingSpeed = 500; // Pause before typing next role
+      roleIndex = (roleIndex + 1) % roles.length;
+      charIndex = 0;
+      typingSpeed = 500;
       startCursorBlink();
     }
 
-    // Schedule the next call to typeRole
     setTimeout(typeRole, typingSpeed);
   }
 
-  // Start the typing animation
   setTimeout(typeRole, 500);
-});
+}
 
-// Function to ensure hover effects work consistently
+// Hover effects function
 function applyHoverEffects() {
   // Project cards hover effect
   const projectCards = document.querySelectorAll(".project-card");
@@ -337,16 +320,6 @@ function applyHoverEffects() {
     });
   });
 
-  // Email button hover effect (This was for the mailto link, might remove or repurpose)
-  // const emailButton = document.querySelector(".email-button");
-  // if (emailButton) { ... }
-
-  // Submit button hover effect (if needed, handled by CSS but JS can add/remove classes too)
-  const submitButton = document.querySelector(".submit-button");
-  if (submitButton) {
-    // Example: Add effect on mouseenter if not purely CSS-driven
-  }
-
   // About content links hover effect
   const aboutLinks = document.querySelectorAll(".about-content a");
   aboutLinks.forEach((link) => {
@@ -372,86 +345,147 @@ function applyHoverEffects() {
   }
 }
 
-// Apply hover effects on page load
-document.addEventListener("DOMContentLoaded", applyHoverEffects);
-
-// =============================================
-// == NEW: AJAX Contact Form Submission Logic ==
-// =============================================
-document.addEventListener("DOMContentLoaded", function () {
+// Enhanced Contact Form - SINGLE IMPLEMENTATION
+function initializeContactForm() {
   const form = document.getElementById("contact-form");
   const formStatus = document.getElementById("form-status");
-  const submitButton = form.querySelector(".submit-button"); // Get the submit button
+  const submitButton = form?.querySelector(".submit-button");
+  const messageTextarea = document.getElementById("message");
+  const charCountElement = document.getElementById("char-count");
+  const topicSelect = document.getElementById("topic");
 
-  if (form) {
-    form.addEventListener("submit", function (event) {
-      event.preventDefault(); // Prevent the default form submission
+  if (!form) return;
 
-      const formData = new FormData(form);
-      const submitButtonOriginalText = submitButton.innerHTML; // Store original button text
+  // Character counter functionality
+  if (messageTextarea && charCountElement) {
+    function updateCharacterCount() {
+      const currentLength = messageTextarea.value.length;
+      charCountElement.textContent = currentLength;
 
-      // Show loading state
-      formStatus.innerHTML = "Sending...";
-      formStatus.className = "form-status sending"; // Add class for styling
-      submitButton.disabled = true; // Disable button while sending
-      submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...'; // Update button text
+      const charCountContainer = charCountElement.parentElement;
+      if (currentLength < 50) {
+        charCountContainer.style.color = "var(--primary-color)";
+      } else if (currentLength < 500) {
+        charCountContainer.style.color = "var(--success-color)";
+      } else {
+        charCountContainer.style.color = "var(--accent-color)";
+      }
+    }
 
-      fetch(form.action, {
-        method: form.method,
-        body: formData,
-        headers: {
-          Accept: "application/json", // Important for Formspree to send JSON response
-        },
-      })
-        .then((response) => {
-          if (response.ok) {
-            // Success!
-            formStatus.innerHTML = "Thanks for your message! I'll get back to you soon.";
-            formStatus.className = "form-status success"; // Add class for styling
-            form.reset(); // Clear the form fields
-            submitButton.disabled = false; // Re-enable button
-            submitButton.innerHTML = submitButtonOriginalText; // Restore original button text
-          } else {
-            // Error from Formspree (e.g., validation error)
-            response
-              .json()
-              .then((data) => {
-                let errorMessage = "Oops! There was a problem submitting your form.";
-                if (data.errors && data.errors.length > 0) {
-                  // Use Formspree's specific error message if available
-                  errorMessage = data.errors.map((error) => error.message).join(", ");
-                }
-                formStatus.innerHTML = errorMessage;
-                formStatus.className = "form-status error"; // Add class for styling
-                submitButton.disabled = false; // Re-enable button
-                submitButton.innerHTML = submitButtonOriginalText; // Restore original button text
-              })
-              .catch(() => {
-                // Fallback error if parsing JSON fails
-                formStatus.innerHTML = "Oops! There was a problem submitting your form. Please try again.";
-                formStatus.className = "form-status error";
-                submitButton.disabled = false;
-                submitButton.innerHTML = submitButtonOriginalText;
-              });
-          }
-        })
-        .catch((error) => {
-          // Network error or other fetch issue
-          console.error("Fetch Error:", error);
-          formStatus.innerHTML = "Oops! There was a network error. Please check your connection and try again.";
-          formStatus.className = "form-status error"; // Add class for styling
-          submitButton.disabled = false; // Re-enable button
-          submitButton.innerHTML = submitButtonOriginalText; // Restore original button text
-        });
-    });
-  } else {
-    console.warn("Contact form with ID 'contact-form' not found.");
+    messageTextarea.addEventListener("input", updateCharacterCount);
+    updateCharacterCount();
   }
-});
+
+  // Form validation
+  const formInputs = form.querySelectorAll(".form-control");
+  formInputs.forEach((input) => {
+    input.addEventListener("blur", function () {
+      validateField(this);
+    });
+
+    input.addEventListener("input", function () {
+      this.classList.remove("error");
+    });
+  });
+
+  function validateField(field) {
+    const value = field.value.trim();
+
+    if (field.hasAttribute("required") && !value) {
+      field.classList.add("error");
+      return false;
+    }
+
+    if (field.type === "email" && value) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(value)) {
+        field.classList.add("error");
+        return false;
+      }
+    }
+
+    field.classList.remove("error");
+    return true;
+  }
+
+  // Form submission - SINGLE EVENT LISTENER
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const formData = new FormData(form);
+    const selectedTopic = topicSelect?.value;
+    const originalMessage = formData.get("message");
+
+    // Include topic information in the message body and subject
+    if (selectedTopic) {
+      const enhancedMessage = `Topic: ${selectedTopic}\n\n${originalMessage}`;
+      formData.set("message", enhancedMessage);
+      formData.set("_subject", `${selectedTopic} - Contact from shane-whelan.ie`);
+    }
+
+    const submitButtonOriginalContent = submitButton.innerHTML;
+
+    // Show loading state
+    formStatus.innerHTML = "Sending your message...";
+    formStatus.className = "form-status sending";
+    submitButton.disabled = true;
+    submitButton.innerHTML = `
+      <span class="button-content">
+        <i class="fas fa-spinner fa-spin"></i>
+        Sending...
+      </span>
+      <div class="button-background"></div>
+    `;
+
+    fetch(form.action, {
+      method: form.method,
+      body: formData,
+      headers: {
+        Accept: "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          formStatus.innerHTML = `
+            <i class="fas fa-check-circle"></i>
+            Thanks for your message! I'll get back to you soon.
+          `;
+          formStatus.className = "form-status success";
+          form.reset();
+
+          // Reset character counter
+          if (charCountElement) charCountElement.textContent = "0";
+
+          submitButton.disabled = false;
+          submitButton.innerHTML = submitButtonOriginalContent;
+
+          // Success animation
+          submitButton.style.background = "var(--success-color)";
+          setTimeout(() => {
+            submitButton.style.background = "";
+          }, 2000);
+        } else {
+          throw new Error("Network response was not ok");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        formStatus.innerHTML = `
+          <i class="fas fa-exclamation-triangle"></i>
+          Oops! There was a problem sending your message. Please try again.
+        `;
+        formStatus.className = "form-status error";
+        submitButton.disabled = false;
+        submitButton.innerHTML = submitButtonOriginalContent;
+      });
+  });
+}
 
 // Timeline scroll animation
-document.addEventListener("DOMContentLoaded", function () {
+function initializeTimelineAnimation() {
   const timelineItems = document.querySelectorAll(".timeline-item");
+
+  if (timelineItems.length === 0) return;
 
   function checkTimelineItems() {
     const triggerBottom = (window.innerHeight / 5) * 4;
@@ -463,24 +497,18 @@ document.addEventListener("DOMContentLoaded", function () {
         item.classList.add("in-view");
       }
 
-      // Add active class for items in the center of the viewport
       const itemCenter = itemTop + item.offsetHeight / 2;
       const viewportCenter = window.innerHeight / 2;
 
-      // Remove active class from all items first
       item.classList.remove("active");
 
-      // Add active class to the item closest to center
       if (Math.abs(itemCenter - viewportCenter) < 150) {
         item.classList.add("active");
       }
     });
   }
 
-  // Initial check
   checkTimelineItems();
-
-  // Check on scroll
   window.addEventListener("scroll", checkTimelineItems);
 
   // Smooth reveal animation on page load
@@ -492,4 +520,42 @@ document.addEventListener("DOMContentLoaded", function () {
       }, index * 200);
     });
   }, 500);
-});
+}
+
+// Animated counter for stats
+function initializeStatsCounter() {
+  const statNumbers = document.querySelectorAll(".stat-number");
+  const contactSection = document.getElementById("contact");
+
+  if (statNumbers.length === 0 || !contactSection) return;
+
+  const animateCounters = () => {
+    statNumbers.forEach((stat) => {
+      const target = parseInt(stat.getAttribute("data-target"));
+      const current = parseInt(stat.textContent);
+
+      if (current < target) {
+        const increment = Math.ceil(target / 50);
+        stat.textContent = Math.min(current + increment, target);
+
+        if (current + increment < target) {
+          setTimeout(() => animateCounters(), 30);
+        }
+      }
+    });
+  };
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCounters();
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.5 },
+  );
+
+  observer.observe(contactSection);
+}

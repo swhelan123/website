@@ -430,44 +430,160 @@
 
             <section id="contact" class="contact-section">
                 <div class="section-header">
-                    <h2><i class="fas fa-envelope section-icon"></i> Contact</h2>
+                    <h2><i class="fas fa-envelope section-icon"></i> Let's Connect</h2>
                     <div class="section-line"></div>
                 </div>
-                <div class="contact-content">
-                    <div class="contact-form">
-                        <p>Interested in hiring me or have any other questions? Fill out the form below:</p>
+
+                <div class="contact-intro">
+                    <h3>Ready to collaborate or just want to chat about tech?</h3>
+                    <p>
+                        I'm always excited to discuss new opportunities, share ideas about software development, or talk about Formula Student engineering. Drop me a message and I'll get back to you
+                        soon!
+                    </p>
+                </div>
+
+                <div class="contact-grid">
+                    <!-- Quick Contact Options -->
+                    <div class="contact-methods">
+                        <div class="contact-method-card">
+                            <div class="method-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <h4>Email Me</h4>
+                            <p>For detailed discussions or formal inquiries</p>
+                            <a href="mailto:contact@shane-whelan.ie" class="method-link">
+                                contact@shane-whelan.ie
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+
+                        <div class="contact-method-card">
+                            <div class="method-icon">
+                                <i class="fab fa-linkedin"></i>
+                            </div>
+                            <h4>LinkedIn</h4>
+                            <p>Connect professionally and see my updates</p>
+                            <a href="https://www.linkedin.com/in/shane-whelan-364988291/" target="_blank" class="method-link">
+                                View Profile
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+
+                        <div class="contact-method-card">
+                            <div class="method-icon">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <h4>GitHub</h4>
+                            <p>Check out my code and collaborate on projects</p>
+                            <a href="https://github.com/swhelan123" target="_blank" class="method-link">
+                                @swhelan123
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+
+                        <div class="contact-method-card response-time">
+                            <div class="method-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h4>Response Time</h4>
+                            <p>Usually within 24 hours</p>
+                            <div class="availability-status">
+                                <span class="status-dot"></span>
+                                Available for opportunities
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Enhanced Contact Form -->
+                    <div class="contact-form-container">
+                        <div class="form-header">
+                            <h3>Send a Message</h3>
+                            <p>Prefer to use a form? Fill out the details below and I'll get back to you.</p>
+                        </div>
+
                         <form id="contact-form" action="https://formspree.io/f/xblogyjv" method="POST" novalidate>
+                            <!-- Keep the hidden subject for fallback -->
                             <input type="hidden" name="_subject" value="New Contact Form Submission from shane-whelan.ie" />
 
-                            <div class="form-group">
-                                <label for="name" class="form-label">Your Name:</label>
-                                <input type="text" id="name" name="name" class="form-control" placeholder="Enter your name" required />
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="name" class="form-label">
+                                        <i class="fas fa-user"></i>
+                                        Your Name
+                                    </label>
+                                    <input type="text" id="name" name="name" class="form-control" placeholder="Enter your full name" required />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email" class="form-label">
+                                        <i class="fas fa-envelope"></i>
+                                        Email Address
+                                    </label>
+                                    <input type="email" id="email" name="email" class="form-control" placeholder="your.email@example.com" required />
+                                </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="email" class="form-label">Your Email:</label>
-                                <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email address" required />
+                                <label for="topic" class="form-label">
+                                    <i class="fas fa-tag"></i>
+                                    What's this about?
+                                </label>
+                                <!-- Changed name from "subject" to "topic" -->
+                                <select id="topic" name="topic" class="form-control" required>
+                                    <option value="">Choose a topic...</option>
+                                    <option value="Job Opportunity">💼 Job Opportunity</option>
+                                    <option value="Collaboration">🤝 Collaboration</option>
+                                    <option value="Formula Student">🏎️ Formula Student</option>
+                                    <option value="StudyMate">📚 StudyMate/Education</option>
+                                    <option value="Technical Question">💻 Technical Question</option>
+                                    <option value="Other">💬 Other</option>
+                                </select>
                             </div>
 
                             <div class="form-group">
-                                <label for="subject" class="form-label">Subject:</label>
-                                <input type="text" id="subject" name="_subject" class="form-control" placeholder="Enter the subject" />
+                                <label for="message" class="form-label">
+                                    <i class="fas fa-comment"></i>
+                                    Your Message
+                                </label>
+                                <textarea
+                                    id="message"
+                                    name="message"
+                                    class="form-control"
+                                    rows="6"
+                                    placeholder="Tell me about your project, opportunity, or question. I'd love to hear from you!"
+                                    required
+                                ></textarea>
+                                <div class="character-count"><span id="char-count">0</span> characters</div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="message" class="form-label">Your Message:</label>
-                                <textarea id="message" name="message" class="form-control" rows="5" placeholder="Type your message here..." required></textarea>
-                            </div>
-
-                            <button type="submit" class="submit-button"><i class="fas fa-paper-plane"></i> Send Message</button>
+                            <button type="submit" class="submit-button">
+                                <span class="button-content">
+                                    <i class="fas fa-paper-plane"></i>
+                                    Send Message
+                                </span>
+                                <div class="button-background"></div>
+                            </button>
 
                             <div id="form-status" class="form-status" aria-live="polite"></div>
                         </form>
                     </div>
-                    <div class="contact-image">
-                        <img src="assets/images/contact.png" alt="Contact illustration" class="contact-illustration" />
-                    </div>
                 </div>
+
+                <!-- Fun Stats Section -->
+                <!-- <div class="contact-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="24">0</div>
+                        <div class="stat-label">Hours Response Time</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="100">0</div>
+                        <div class="stat-label">% Response Rate</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="50">0</div>
+                        <div class="stat-label">+ Projects Discussed</div>
+                    </div>
+                </div> -->
             </section>
         </main>
 
