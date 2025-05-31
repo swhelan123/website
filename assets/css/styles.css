@@ -40,6 +40,7 @@ button,
 .skill-item,
 .project-card,
 .education-card,
+.article-entry, /* Added article-entry */
 .toggle-label,
 .profile-photo,
 .social-badge,
@@ -149,12 +150,14 @@ body.light-mode .section-line {
 
 body.light-mode .project-card,
 body.light-mode .education-card,
+body.light-mode .article-entry, /* Added article-entry */
 body.light-mode .skill-item {
     background-color: var(--light-card);
     box-shadow: var(--card-shadow);
 }
 
 body.light-mode .card-header {
+    /* This is specific to project/experience cards */
     background-color: rgba(231, 76, 60, 0.05);
     color: var(--primary-color);
 }
@@ -194,12 +197,14 @@ body.dark-mode .section-line {
 
 body.dark-mode .project-card,
 body.dark-mode .education-card,
+body.dark-mode .article-entry, /* Added article-entry */
 body.dark-mode .skill-item {
     background-color: var(--dark-card);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 body.dark-mode .card-header {
+    /* This is specific to project/experience cards */
     background-color: rgba(9, 132, 227, 0.1);
     color: var(--accent-color);
 }
@@ -482,6 +487,11 @@ section {
     color: var(--primary-color);
 }
 
+body.dark-mode .section-icon {
+    /* Ensure icon color changes in dark mode if needed */
+    color: var(--accent-color);
+}
+
 .section-line {
     height: 3px;
     width: 100px;
@@ -561,6 +571,9 @@ section {
     font-size: 2rem;
     color: var(--primary-color);
 }
+body.dark-mode .education-icon {
+    color: var(--accent-color);
+}
 
 .education-details h3 {
     margin-bottom: 0.5rem;
@@ -633,7 +646,9 @@ section {
 }
 
 .card-content p:last-of-type {
+    /* This targets the main description paragraph */
     flex-grow: 1; /* Make the description paragraph grow */
+    margin-bottom: 1rem; /* Ensure some space before project links */
 }
 
 .project-organization {
@@ -641,6 +656,75 @@ section {
     margin-bottom: 0.5rem;
     color: var(--primary-color);
     transition: color 0.2s ease !important;
+}
+body.dark-mode .project-organization {
+    color: var(--accent-color);
+}
+
+/* ========== ARTICLES SECTION STYLES ========== */
+.articles-section .articles-content {
+    max-width: 100%; /* Allow full width for multiple cards */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive cards */
+    gap: 2rem;
+}
+
+.articles-section .articles-content > p:first-child {
+    /* Style the introductory paragraph */
+    grid-column: 1 / -1; /* Make it span all columns */
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+.articles-section .article-entry {
+    /* background-color set by theme mode body.light-mode .article-entry */
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    /* box-shadow set by theme mode body.light-mode .article-entry */
+    /* transition is global */
+    display: flex;
+    flex-direction: column; /* Ensure content flows top to bottom */
+}
+
+.articles-section .article-entry:hover {
+    transform: translateY(-5px);
+    /* box-shadow is global for hover */
+}
+
+.articles-section .article-entry h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem; /* Slightly larger for article titles */
+    font-weight: 600;
+}
+
+.articles-section .article-entry h3 a {
+    text-decoration: none;
+    /* Color will be inherited from body a tag styles per theme */
+}
+
+.articles-section .article-entry h3 a:hover {
+    text-decoration: underline;
+}
+
+.articles-section .article-entry .article-date {
+    font-size: 0.9rem;
+    color: #7f8c8d; /* Subdued color for date */
+    margin-bottom: 0.75rem;
+}
+body.dark-mode .articles-section .article-entry .article-date {
+    color: #95a5a6;
+}
+
+.articles-section .article-entry p {
+    /* This targets the description paragraph */
+    margin-bottom: 1rem;
+    flex-grow: 1; /* Allows description to take available space before "Read more" */
+}
+
+/* Reusing .project-links and .project-link for "Read more" button consistency */
+.articles-section .article-entry .project-links {
+    margin-top: auto; /* Pushes "Read more" to the bottom */
+    padding-top: 1rem; /* Space above the link */
 }
 
 /* Skills Section */
@@ -700,6 +784,9 @@ section {
 .skill-item i {
     color: var(--primary-color);
     transition: color 0.2s ease !important;
+}
+body.dark-mode .skill-item i {
+    color: var(--accent-color);
 }
 
 /* Contact Section */
@@ -912,6 +999,15 @@ body.dark-mode .footer-social a:hover {
     .projects-container {
         grid-template-columns: repeat(3, 1fr); /* Force 3 columns */
     }
+    .articles-section .articles-content {
+        /* Ensure articles also follow similar column logic if desired */
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Default, can be overridden */
+        /* If you want to force 3 columns for articles on large screens too: */
+        /* grid-template-columns: repeat(3, 1fr); */
+    }
+    .articles-section .articles-content > p:first-child {
+        grid-column: 1 / -1; /* Ensure intro text spans all columns */
+    }
 }
 
 /* Medium Screens (Tablets) - Adjust hero, maybe 2 columns for projects */
@@ -960,9 +1056,13 @@ body.dark-mode .footer-social a:hover {
     }
 
     /* Optionally adjust projects container for tablets */
-    .projects-container {
-        /* Keep auto-fill or set to 2 columns */
+    .projects-container,
+    .articles-section .articles-content {
+        /* Apply to articles too */
         grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+    .articles-section .articles-content > p:first-child {
+        grid-column: 1 / -1;
     }
 }
 
@@ -989,9 +1089,15 @@ body.dark-mode .footer-social a:hover {
     }
 
     .projects-container,
-    .education-cards {
+    .education-cards,
+    .articles-section .articles-content {
+        /* Apply to articles too */
         grid-template-columns: 1fr; /* Force 1 column */
     }
+    .articles-section .articles-content > p:first-child {
+        grid-column: 1 / -1;
+    }
+
     .skills-container {
         grid-template-columns: 1fr; /* Force 1 column */
     }
@@ -1087,10 +1193,10 @@ nav ul li a.active::after {
 }
 html {
     /* Adjust this value based on the actual height of your sticky header */
-    scroll-padding-top: 70px;
+    scroll-padding-top: 70px; /* Default, can be overridden by JS */
 }
 
-/* Project Links Styling */
+/* Project Links Styling (also used for article "Read more") */
 .project-links {
     margin-top: auto; /* Push links to the bottom */
     padding-top: 1rem; /* Add space above links */
