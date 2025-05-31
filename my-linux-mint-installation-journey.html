@@ -7,102 +7,334 @@
         <meta name="author" content="Shane Whelan" />
         <meta name="description" content="A detailed account of installing Linux Mint on a dedicated SSD, covering challenges like AHCI vs RST, and the overall learning experience." />
 
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="assets/css/styles.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
 
         <style>
-            body {
-                /* Overrides from main styles.css for article page if needed */
-                font-family: "Inter", sans-serif;
-                line-height: 1.7;
-                margin: 0;
-                padding: 0;
-                /* background-color: #f8f9fa; /* Light mode default */
-                /* color: #2c3e50; */
-            }
-            .article-container {
-                max-width: 800px;
-                margin: 2rem auto; /* Add some margin */
-                padding: 2rem;
-                background-color: #fff; /* Card-like background */
-                border-radius: 8px;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            }
-            .article-container h1 {
-                font-size: 2.5rem;
-                margin-bottom: 1rem;
-                color: #e74c3c; /* Primary color from your site */
-            }
-            .article-container h2 {
-                font-size: 1.8rem;
-                margin-top: 2rem;
-                margin-bottom: 1rem;
-                color: #e74c3c; /* Primary color */
-                border-bottom: 2px solid #f0f0f0;
-                padding-bottom: 0.5rem;
-            }
-            .article-container h3 {
-                font-size: 1.4rem;
-                margin-top: 1.5rem;
-                margin-bottom: 0.75rem;
-                color: #34495e; /* A slightly darker text color */
-            }
-            .article-container p,
-            .article-container ul li {
-                margin-bottom: 1rem;
-                font-size: 1.1rem;
-            }
-            .article-container ul {
-                padding-left: 20px;
-            }
-            .article-container code {
-                background-color: #e9ecef;
-                padding: 0.2em 0.4em;
-                margin: 0;
-                font-size: 85%;
-                border-radius: 3px;
-                font-family: "Courier New", Courier, monospace;
-            }
-            .article-container .article-meta {
-                font-size: 0.9rem;
-                color: #7f8c8d;
-                margin-bottom: 2rem;
-            }
-            .article-container .back-link {
-                display: inline-block;
-                margin-bottom: 2rem;
-                color: #e74c3c;
-                text-decoration: none;
-                font-weight: 500;
-            }
-            .article-container .back-link:hover {
-                text-decoration: underline;
+            /* Article-specific styles */
+            .article-hero {
+                position: relative;
+                height: 60vh;
+                min-height: 400px;
+                background: linear-gradient(135deg, rgba(231, 76, 60, 0.9), rgba(255, 118, 117, 0.8)), url("assets/images/linux-mint-hero.jpg");
+                background-size: cover;
+                background-position: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                text-align: center;
+                overflow: hidden;
             }
 
-            /* Basic dark mode adaptation for article content */
-            body.dark-mode .article-container {
-                background-color: #1e1e1e; /* Dark card background */
-                /* color: #ecf0f1; /* Dark text */
+            body.dark-mode .article-hero {
+                background: linear-gradient(135deg, rgba(9, 132, 227, 0.9), rgba(255, 118, 117, 0.8)), url("assets/images/linux-mint-hero.jpg");
             }
-            body.dark-mode .article-container h1,
-            body.dark-mode .article-container h2 {
-                color: #0984e3; /* Accent color for dark mode */
+
+            .article-hero::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.3);
+                z-index: 1;
             }
-            body.dark-mode .article-container h3 {
-                color: #bdc3c7;
+
+            .hero-content {
+                position: relative;
+                z-index: 2;
+                max-width: 800px;
+                padding: 2rem;
             }
-            body.dark-mode .article-container code {
-                background-color: #2c3e50;
-                color: #ecf0f1;
+
+            .hero-content h1 {
+                font-size: 3.5rem;
+                font-weight: 700;
+                margin-bottom: 1rem;
+                line-height: 1.2;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
             }
-            body.dark-mode .article-container .back-link {
-                color: #0984e3;
+
+            .hero-meta {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                margin-top: 2rem;
+                flex-wrap: wrap;
             }
-            body.dark-mode .article-container p,
-            body.dark-mode .article-container ul li {
-                /* color: #ecf0f1; Ensure text is readable */
+
+            .meta-item {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                background: rgba(255, 255, 255, 0.2);
+                backdrop-filter: blur(10px);
+                padding: 0.8rem 1.2rem;
+                border-radius: 50px;
+                font-weight: 500;
+            }
+
+            .article-container {
+                max-width: 900px;
+                margin: -80px auto 4rem;
+                position: relative;
+                z-index: 3;
+            }
+
+            .article-content {
+                background: var(--light-card);
+                border-radius: 20px;
+                padding: 4rem;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+                margin-bottom: 2rem;
+            }
+
+            body.dark-mode .article-content {
+                background: var(--dark-card);
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            }
+
+            .article-nav {
+                background: var(--light-card);
+                border-radius: 15px;
+                padding: 1.5rem 2rem;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            body.dark-mode .article-nav {
+                background: var(--dark-card);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            }
+
+            .nav-link {
+                display: flex;
+                align-items: center;
+                gap: 0.8rem;
+                color: var(--primary-color);
+                text-decoration: none;
+                font-weight: 600;
+                padding: 0.8rem 1.5rem;
+                border-radius: 50px;
+                transition: all 0.3s ease;
+                background: rgba(231, 76, 60, 0.1);
+            }
+
+            body.dark-mode .nav-link {
+                color: var(--accent-color);
+                background: rgba(9, 132, 227, 0.1);
+            }
+
+            .nav-link:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(231, 76, 60, 0.2);
+            }
+
+            body.dark-mode .nav-link:hover {
+                box-shadow: 0 8px 20px rgba(9, 132, 227, 0.2);
+            }
+
+            /* Enhanced Typography */
+            .article-content h2 {
+                font-size: 2.2rem;
+                font-weight: 700;
+                margin: 3rem 0 1.5rem;
+                color: var(--primary-color);
+                position: relative;
+                padding-left: 1rem;
+            }
+
+            body.dark-mode .article-content h2 {
+                color: var(--accent-color);
+            }
+
+            .article-content h2::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 4px;
+                background: linear-gradient(180deg, var(--primary-color), var(--secondary-color));
+                border-radius: 2px;
+            }
+
+            body.dark-mode .article-content h2::before {
+                background: linear-gradient(180deg, var(--accent-color), var(--secondary-color));
+            }
+
+            .article-content h3 {
+                font-size: 1.6rem;
+                font-weight: 600;
+                margin: 2rem 0 1rem;
+                color: var(--light-text);
+            }
+
+            body.dark-mode .article-content h3 {
+                color: var(--dark-text);
+            }
+
+            .article-content p {
+                font-size: 1.1rem;
+                line-height: 1.8;
+                margin-bottom: 1.5rem;
+                color: var(--light-text);
+            }
+
+            body.dark-mode .article-content p {
+                color: var(--dark-text);
+            }
+
+            .article-content ul {
+                margin: 1.5rem 0;
+                padding-left: 0;
+            }
+
+            .article-content ul li {
+                font-size: 1.1rem;
+                line-height: 1.7;
+                margin-bottom: 1rem;
+                padding-left: 2rem;
+                position: relative;
+                list-style: none;
+            }
+
+            .article-content ul li::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 0.7rem;
+                width: 8px;
+                height: 8px;
+                background: var(--primary-color);
+                border-radius: 50%;
+            }
+
+            body.dark-mode .article-content ul li::before {
+                background: var(--accent-color);
+            }
+
+            .article-content strong {
+                color: var(--primary-color);
+                font-weight: 600;
+            }
+
+            body.dark-mode .article-content strong {
+                color: var(--accent-color);
+            }
+
+            .article-content em {
+                background: rgba(231, 76, 60, 0.1);
+                padding: 0.2rem 0.5rem;
+                border-radius: 4px;
+                font-style: normal;
+                color: var(--primary-color);
+                font-weight: 500;
+            }
+
+            body.dark-mode .article-content em {
+                background: rgba(9, 132, 227, 0.1);
+                color: var(--accent-color);
+            }
+
+            .article-content code {
+                background: var(--light-bg);
+                color: var(--primary-color);
+                padding: 0.3rem 0.6rem;
+                border-radius: 6px;
+                font-family: "Courier New", monospace;
+                font-size: 0.95rem;
+                font-weight: 600;
+                border: 1px solid rgba(231, 76, 60, 0.2);
+            }
+
+            body.dark-mode .article-content code {
+                background: var(--dark-bg);
+                color: var(--accent-color);
+                border-color: rgba(9, 132, 227, 0.2);
+            }
+
+            /* Image Enhancements */
+            .content-image {
+                width: 100%;
+                border-radius: 12px;
+                margin: 2rem 0;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease;
+            }
+
+            .content-image:hover {
+                transform: scale(1.02);
+            }
+
+            /* Info Boxes */
+            .info-box {
+                background: linear-gradient(135deg, rgba(231, 76, 60, 0.1), rgba(255, 118, 117, 0.05));
+                border-left: 4px solid var(--primary-color);
+                padding: 1.5rem;
+                margin: 2rem 0;
+                border-radius: 8px;
+                position: relative;
+            }
+
+            body.dark-mode .info-box {
+                background: linear-gradient(135deg, rgba(9, 132, 227, 0.1), rgba(255, 118, 117, 0.05));
+                border-left-color: var(--accent-color);
+            }
+
+            .info-box::before {
+                content: "\f05a";
+                font-family: "Font Awesome 6 Free";
+                font-weight: 900;
+                position: absolute;
+                left: -12px;
+                top: 1.5rem;
+                background: var(--primary-color);
+                color: white;
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.8rem;
+            }
+
+            body.dark-mode .info-box::before {
+                background: var(--accent-color);
+            }
+
+            /* Responsive Design */
+            @media (max-width: 768px) {
+                .hero-content h1 {
+                    font-size: 2.5rem;
+                }
+
+                .article-content {
+                    padding: 2rem;
+                    margin: -60px 1rem 2rem;
+                }
+
+                .article-nav {
+                    flex-direction: column;
+                    gap: 1rem;
+                    margin: 0 1rem;
+                }
+
+                .hero-meta {
+                    flex-direction: column;
+                    gap: 1rem;
+                }
             }
         </style>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     </head>
     <body class="light-mode">
         <script>
@@ -111,109 +343,156 @@
             if (savedTheme === "dark") {
                 document.body.classList.remove("light-mode");
                 document.body.classList.add("dark-mode");
-            } else {
-                document.body.classList.remove("dark-mode");
-                document.body.classList.add("light-mode");
             }
         </script>
 
+        <div class="article-hero">
+            <div class="hero-content">
+                <h1>Installing Linux Mint on a Dedicated SSD</h1>
+                <div class="hero-meta">
+                    <div class="meta-item">
+                        <i class="fas fa-calendar"></i>
+                        <span>May 11, 2025</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span>8 min read</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-tag"></i>
+                        <span>Tutorial</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="article-container">
-            <a href="index.html#articles" class="back-link"><i class="fas fa-arrow-left"></i> Back to Articles</a>
-            <h1>My Journey Installing Linux Mint on a Dedicated SSD</h1>
-            <p class="article-meta">Published on May 11, 2025 by Shane Whelan</p>
+            <div class="article-content">
+                <p>
+                    Recently, I decided to breathe new life into an old 120GB SSD I had lying around by turning it into a dedicated Linux boot drive. My main PC, a capable machine with a Ryzen 5
+                    processor, 16GB of RAM, and an NVIDIA GTX 1060 6GB graphics card, seemed like the perfect candidate for this experiment. This post details my journey, the hurdles I encountered,
+                    and what I learned along the way.
+                </p>
 
-            <p>
-                Recently, I decided to breathe new life into an old 120GB SSD I had lying around by turning it into a dedicated Linux boot drive. My main PC, a capable machine with a Ryzen 5
-                processor, 16GB of RAM, and an NVIDIA GTX 1060 6GB graphics card, seemed like the perfect candidate for this experiment. This post details my journey, the hurdles I encountered, and
-                what I learned along the way.
-            </p>
+                <img src="assets/images/linux-setup.jpg" alt="Linux Mint desktop setup" class="content-image" />
 
-            <h2>Phase 1: Preparation & Creating the Bootable USB</h2>
-            <p>
-                The first step was choosing a distribution. After some research, I settled on <strong>Linux Mint (Cinnamon Edition)</strong>. It's often recommended for users transitioning from
-                Windows due to its user-friendly interface and solid performance out-of-the-box.
-            </p>
-            <p>
-                I downloaded the latest ISO from the official Linux Mint website and then used <strong>Rufus</strong> on my Windows system to create a bootable USB drive. During this process, Rufus
-                presented a dialog box stating:
-                <em
-                    >"This image uses Syslinux 6.04/20240408 but this application only includes the installation files for Syslinux 6.04/pre1... two additional files must be downloaded from the
-                    Internet ('ldlinux.sys' and 'ldlinux.bss')."</em
-                >
-                This essentially means the Linux Mint ISO needed specific bootloader files that weren't bundled with my version of Rufus. I clicked "Yes" to allow Rufus to download them, which is
-                crucial for the USB to boot correctly.
-            </p>
+                <h2>Phase 1: Preparation & Creating the Bootable USB</h2>
+                <p>
+                    The first step was choosing a distribution. After some research, I settled on <strong>Linux Mint (Cinnamon Edition)</strong>. It's often recommended for users transitioning from
+                    Windows due to its user-friendly interface and solid performance out-of-the-box.
+                </p>
 
-            <h2>Phase 2: The First Boot & Initial Hurdles</h2>
-            <p>
-                With the bootable USB ready, I restarted my PC, entered the BIOS/UEFI settings, and set the USB drive as the primary boot device. Success! The Linux Mint live session started up.
-                However, my initial experience was, to put it mildly, sluggish. As I mentioned during the process, it felt like "operating on a potato." This is normal when running a full OS from a
-                USB stick, as USB speeds are significantly slower than an internal SSD. It's a temporary inconvenience during the "try before you install" phase.
-            </p>
-            <p>
-                Once on the live desktop, I launched the installer. My first hiccup came at the "Installation type" screen. I initially hoped to use the "Install Linux Mint alongside..." option, but
-                it wasn't detecting my 120GB SSD as a target; it only showed an external USB drive I had connected for other purposes.
-            </p>
+                <p>
+                    I downloaded the latest ISO from the official Linux Mint website and then used <strong>Rufus</strong> on my Windows system to create a bootable USB drive. During this process,
+                    Rufus presented a dialog box stating:
+                </p>
 
-            <h2>Phase 3: The BIOS/UEFI Deep Dive - The AHCI Breakthrough</h2>
-            <p>
-                This is where the real troubleshooting began. I suspected a BIOS/UEFI setting was preventing the installer from seeing the SSD correctly. Since my system previously ran Windows 11, I
-                knew there were a few settings to check:
-            </p>
-            <ul>
-                <li>
-                    <strong>Secure Boot:</strong> I had already disabled Secure Boot, which is often recommended for Linux installations, especially when NVIDIA proprietary drivers might be involved
-                    later.
-                </li>
-                <li>
-                    <strong>SATA Controller Mode:</strong> This turned out to be the critical one. Many modern motherboards, especially those configured for Windows 10/11, default the SATA controller
-                    to "Intel RST" (Rapid Storage Technology) or "RAID" mode. Linux installers often struggle to detect drives in this mode. I navigated through my BIOS settings (under "Advanced" ->
-                    "SATA Configuration") and changed the mode from "Intel RST Premium" to <strong>"AHCI" (Advanced Host Controller Interface)</strong>. This is the standard mode that Linux drivers
-                    expect for SATA drives.
+                <div class="info-box">
                     <em
-                        >(A word of caution: If you're dual-booting with an existing Windows installation on another drive that was installed in RST/RAID mode, changing this to AHCI can prevent
-                        Windows from booting unless you prepare Windows for the change beforehand, usually by booting into Safe Mode once before and once after the change.)</em
+                        >"This image uses Syslinux 6.04/20240408 but this application only includes the installation files for Syslinux 6.04/pre1... two additional files must be downloaded from the
+                        Internet ('ldlinux.sys' and 'ldlinux.bss')."</em
                     >
-                </li>
-            </ul>
-            <p>
-                After changing to AHCI mode and saving the BIOS settings, I rebooted from the Linux Mint USB again. This time, when I chose the **"Something else"** option in the installer (for manual
-                partitioning), my 120GB SSD was visible!
-            </p>
+                </div>
 
-            <h2>Phase 4: Installation & First Impressions on SSD</h2>
-            <p>
-                With the SSD detected, the rest of the installation was more straightforward using the "Something else" option. I deleted any existing partitions on the 120GB SSD to create unallocated
-                space. Then, I created the necessary partitions for Linux Mint:
-            </p>
-            <ul>
-                <li>An <strong>EFI System Partition</strong> (around 512MB) since my system uses UEFI.</li>
-                <li>A <strong>root partition (<code>/</code>)</strong> using the Ext4 filesystem, taking up most of the remaining space.</li>
-                <li>A small <strong>swap partition</strong> (a few GBs).</li>
-            </ul>
-            <p>
-                I made sure the bootloader was set to install to the 120GB SSD (e.g., <code>/dev/sda</code>, not a specific partition). The installation process took about 10-15 minutes. Once
-                completed, I restarted the PC, removed the USB drive when prompted, and... success!
-            </p>
-            <p>
-                Linux Mint booted up from the SSD, and the difference in performance was night and day compared to the live USB session. Everything was snappy, applications launched quickly, and the
-                system felt incredibly responsive. The "potato" was gone, replaced by a sleek, fast operating system.
-            </p>
+                <p>
+                    This essentially means the Linux Mint ISO needed specific bootloader files that weren't bundled with my version of Rufus. I clicked "Yes" to allow Rufus to download them, which is
+                    crucial for the USB to boot correctly.
+                </p>
 
-            <h2>Conclusion: A Rewarding Learning Experience</h2>
-            <p>This installation journey was a fantastic learning experience. The key takeaways for me were:</p>
-            <ul>
-                <li>The Rufus Syslinux prompt is normal and necessary for some ISOs.</li>
-                <li>Live USB sessions are inherently slow; don't judge the OS performance by them.</li>
-                <li>The SATA controller mode (AHCI vs. RST/RAID) is a critical BIOS setting for Linux compatibility, especially on systems that previously ran recent versions of Windows.</li>
-                <li>The "Something else" installation option in Linux Mint provides the control needed for specific drive setups.</li>
-            </ul>
-            <p>
-                If you're considering installing Linux, especially on a dedicated drive, don't be discouraged by initial hurdles. A bit of research and careful attention to BIOS/UEFI settings can
-                solve most detection issues. The end result – a fast, customized Linux system – is well worth the effort. My old 120GB SSD has found a new, speedy purpose!
-            </p>
+                <img src="assets/images/rufus-screenshot.jpg" alt="Rufus creating bootable USB" class="content-image" />
 
-            <a href="index.html#articles" class="back-link" style="margin-top: 2rem"><i class="fas fa-arrow-left"></i> Back to Articles</a>
+                <h2>Phase 2: The First Boot & Initial Hurdles</h2>
+                <p>
+                    With the bootable USB ready, I restarted my PC, entered the BIOS/UEFI settings, and set the USB drive as the primary boot device. Success! The Linux Mint live session started up.
+                    However, my initial experience was, to put it mildly, sluggish. As I mentioned during the process, it felt like <em>"operating on a potato."</em> This is normal when running a full
+                    OS from a USB stick, as USB speeds are significantly slower than an internal SSD.
+                </p>
+
+                <p>
+                    Once on the live desktop, I launched the installer. My first hiccup came at the "Installation type" screen. I initially hoped to use the "Install Linux Mint alongside..." option,
+                    but it wasn't detecting my 120GB SSD as a target; it only showed an external USB drive I had connected for other purposes.
+                </p>
+
+                <h2>Phase 3: The BIOS/UEFI Deep Dive - The AHCI Breakthrough</h2>
+                <p>
+                    This is where the real troubleshooting began. I suspected a BIOS/UEFI setting was preventing the installer from seeing the SSD correctly. Since my system previously ran Windows 11,
+                    I knew there were a few settings to check:
+                </p>
+
+                <ul>
+                    <li>
+                        <strong>Secure Boot:</strong> I had already disabled Secure Boot, which is often recommended for Linux installations, especially when NVIDIA proprietary drivers might be
+                        involved later.
+                    </li>
+                    <li>
+                        <strong>SATA Controller Mode:</strong> This turned out to be the critical one. Many modern motherboards, especially those configured for Windows 10/11, default the SATA
+                        controller to "Intel RST" (Rapid Storage Technology) or "RAID" mode. Linux installers often struggle to detect drives in this mode. I navigated through my BIOS settings (under
+                        "Advanced" -> "SATA Configuration") and changed the mode from "Intel RST Premium" to <strong>"AHCI" (Advanced Host Controller Interface)</strong>.
+                    </li>
+                </ul>
+
+                <img src="assets/images/bios-ahci-setting.jpg" alt="BIOS AHCI configuration" class="content-image" />
+
+                <div class="info-box">
+                    <strong>Important:</strong> If you're dual-booting with an existing Windows installation on another drive that was installed in RST/RAID mode, changing this to AHCI can prevent
+                    Windows from booting unless you prepare Windows for the change beforehand, usually by booting into Safe Mode once before and once after the change.
+                </div>
+
+                <p>
+                    After changing to AHCI mode and saving the BIOS settings, I rebooted from the Linux Mint USB again. This time, when I chose the <strong>"Something else"</strong> option in the
+                    installer (for manual partitioning), my 120GB SSD was visible!
+                </p>
+
+                <h2>Phase 4: Installation & First Impressions on SSD</h2>
+                <p>
+                    With the SSD detected, the rest of the installation was more straightforward using the "Something else" option. I deleted any existing partitions on the 120GB SSD to create
+                    unallocated space. Then, I created the necessary partitions for Linux Mint:
+                </p>
+
+                <ul>
+                    <li>An <strong>EFI System Partition</strong> (around 512MB) since my system uses UEFI.</li>
+                    <li>A <strong>root partition (<code>/</code>)</strong> using the Ext4 filesystem, taking up most of the remaining space.</li>
+                    <li>A small <strong>swap partition</strong> (a few GBs).</li>
+                </ul>
+
+                <img src="assets/images/partition-setup.jpg" alt="Linux partition setup" class="content-image" />
+
+                <p>
+                    I made sure the bootloader was set to install to the 120GB SSD (e.g., <code>/dev/sda</code>, not a specific partition). The installation process took about 10-15 minutes. Once
+                    completed, I restarted the PC, removed the USB drive when prompted, and... success!
+                </p>
+
+                <p>
+                    Linux Mint booted up from the SSD, and the difference in performance was night and day compared to the live USB session. Everything was snappy, applications launched quickly, and
+                    the system felt incredibly responsive. The "potato" was gone, replaced by a sleek, fast operating system.
+                </p>
+
+                <h2>Conclusion: A Rewarding Learning Experience</h2>
+                <p>This installation journey was a fantastic learning experience. The key takeaways for me were:</p>
+
+                <ul>
+                    <li>The Rufus Syslinux prompt is normal and necessary for some ISOs.</li>
+                    <li>Live USB sessions are inherently slow; don't judge the OS performance by them.</li>
+                    <li>The SATA controller mode (AHCI vs. RST/RAID) is a critical BIOS setting for Linux compatibility, especially on systems that previously ran recent versions of Windows.</li>
+                    <li>The "Something else" installation option in Linux Mint provides the control needed for specific drive setups.</li>
+                </ul>
+
+                <p>
+                    If you're considering installing Linux, especially on a dedicated drive, don't be discouraged by initial hurdles. A bit of research and careful attention to BIOS/UEFI settings can
+                    solve most detection issues. The end result – a fast, customized Linux system – is well worth the effort. My old 120GB SSD has found a new, speedy purpose!
+                </p>
+            </div>
+
+            <div class="article-nav">
+                <a href="index.html#articles" class="nav-link">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Articles
+                </a>
+                <a href="index.html#contact" class="nav-link">
+                    Questions? Contact Me
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
         </div>
     </body>
 </html>

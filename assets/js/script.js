@@ -448,3 +448,48 @@ document.addEventListener("DOMContentLoaded", function () {
     console.warn("Contact form with ID 'contact-form' not found.");
   }
 });
+
+// Timeline scroll animation
+document.addEventListener("DOMContentLoaded", function () {
+  const timelineItems = document.querySelectorAll(".timeline-item");
+
+  function checkTimelineItems() {
+    const triggerBottom = (window.innerHeight / 5) * 4;
+
+    timelineItems.forEach((item) => {
+      const itemTop = item.getBoundingClientRect().top;
+
+      if (itemTop < triggerBottom) {
+        item.classList.add("in-view");
+      }
+
+      // Add active class for items in the center of the viewport
+      const itemCenter = itemTop + item.offsetHeight / 2;
+      const viewportCenter = window.innerHeight / 2;
+
+      // Remove active class from all items first
+      item.classList.remove("active");
+
+      // Add active class to the item closest to center
+      if (Math.abs(itemCenter - viewportCenter) < 150) {
+        item.classList.add("active");
+      }
+    });
+  }
+
+  // Initial check
+  checkTimelineItems();
+
+  // Check on scroll
+  window.addEventListener("scroll", checkTimelineItems);
+
+  // Smooth reveal animation on page load
+  setTimeout(() => {
+    timelineItems.forEach((item, index) => {
+      setTimeout(() => {
+        item.style.opacity = "0.6";
+        item.style.transform = "translateY(0)";
+      }, index * 200);
+    });
+  }, 500);
+});
