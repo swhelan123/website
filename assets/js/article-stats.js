@@ -1,11 +1,5 @@
 // Import Firebase functions
-import {
-  doc,
-  updateDoc,
-  increment,
-  getDoc,
-  setDoc,
-} from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+import { doc, updateDoc, increment, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
 
 class ArticleStats {
   constructor(articleId) {
@@ -18,8 +12,7 @@ class ArticleStats {
   getUserKey() {
     let key = localStorage.getItem("user_key");
     if (!key) {
-      key =
-        "user_" + Math.random().toString(36).substr(2, 9) + "_" + Date.now();
+      key = "user_" + Math.random().toString(36).substr(2, 9) + "_" + Date.now();
       localStorage.setItem("user_key", key);
     }
     return key;
@@ -70,21 +63,12 @@ class ArticleStats {
 
   async loadStats() {
     const articleRef = doc(this.db, "articles", this.articleId);
-    const userLikeRef = doc(
-      this.db,
-      "user_likes",
-      `${this.userKey}_${this.articleId}`
-    );
+    const userLikeRef = doc(this.db, "user_likes", `${this.userKey}_${this.articleId}`);
 
     try {
-      const [articleDoc, userLikeDoc] = await Promise.all([
-        getDoc(articleRef),
-        getDoc(userLikeRef),
-      ]);
+      const [articleDoc, userLikeDoc] = await Promise.all([getDoc(articleRef), getDoc(userLikeRef)]);
 
-      const stats = articleDoc.exists()
-        ? articleDoc.data()
-        : { views: 0, likes: 0 };
+      const stats = articleDoc.exists() ? articleDoc.data() : { views: 0, likes: 0 };
       const hasLiked = userLikeDoc.exists() && userLikeDoc.data().liked;
 
       console.log("Loaded stats:", stats, "User liked:", hasLiked);
@@ -99,11 +83,7 @@ class ArticleStats {
   async toggleLike() {
     console.log("Toggling like for article:", this.articleId);
 
-    const userLikeRef = doc(
-      this.db,
-      "user_likes",
-      `${this.userKey}_${this.articleId}`
-    );
+    const userLikeRef = doc(this.db, "user_likes", `${this.userKey}_${this.articleId}`);
     const articleRef = doc(this.db, "articles", this.articleId);
 
     try {
@@ -132,29 +112,21 @@ class ArticleStats {
   updateDisplay(views, likes, hasLiked) {
     // Find elements using multiple selectors to ensure we get them
     const viewsElement =
-      document.querySelector(".article-stats .stat .fa-eye")?.parentElement ||
-      document.querySelector(".stat:has(.fa-eye)") ||
-      document.querySelector('[class*="fa-eye"]')?.parentElement;
+      document.querySelector(".article-stats .stat .fa-eye")?.parentElement || document.querySelector(".stat:has(.fa-eye)") || document.querySelector('[class*="fa-eye"]')?.parentElement;
 
     const likesElement =
-      document.querySelector(".article-stats .stat .fa-heart")?.parentElement ||
-      document.querySelector(".stat:has(.fa-heart)") ||
-      document.querySelector('[class*="fa-heart"]')?.parentElement;
+      document.querySelector(".article-stats .stat .fa-heart")?.parentElement || document.querySelector(".stat:has(.fa-heart)") || document.querySelector('[class*="fa-heart"]')?.parentElement;
 
     console.log("Found elements:", { viewsElement, likesElement });
 
     if (viewsElement) {
-      viewsElement.innerHTML = `<i class="fas fa-eye"></i> ${this.formatNumber(
-        views
-      )} views`;
+      viewsElement.innerHTML = `<i class="fas fa-eye"></i> ${this.formatNumber(views)} views`;
       console.log("Updated views display:", views);
     }
 
     if (likesElement) {
       const heartClass = hasLiked ? "fas fa-heart" : "far fa-heart";
-      likesElement.innerHTML = `<i class="${heartClass}"></i> ${this.formatNumber(
-        likes
-      )} likes`;
+      likesElement.innerHTML = `<i class="${heartClass}"></i> ${this.formatNumber(likes)} likes`;
       likesElement.style.color = hasLiked ? "#e74c3c" : "";
       console.log("Updated likes display:", likes, "liked:", hasLiked);
     }
@@ -162,9 +134,7 @@ class ArticleStats {
 
   setupLikeButton() {
     const likesElement =
-      document.querySelector(".article-stats .stat .fa-heart")?.parentElement ||
-      document.querySelector(".stat:has(.fa-heart)") ||
-      document.querySelector('[class*="fa-heart"]')?.parentElement;
+      document.querySelector(".article-stats .stat .fa-heart")?.parentElement || document.querySelector(".stat:has(.fa-heart)") || document.querySelector('[class*="fa-heart"]')?.parentElement;
 
     if (likesElement) {
       likesElement.style.cursor = "pointer";
@@ -174,10 +144,7 @@ class ArticleStats {
       // Remove any existing listeners
       likesElement.replaceWith(likesElement.cloneNode(true));
       const newLikesElement =
-        document.querySelector(".article-stats .stat .fa-heart")
-          ?.parentElement ||
-        document.querySelector(".stat:has(.fa-heart)") ||
-        document.querySelector('[class*="fa-heart"]')?.parentElement;
+        document.querySelector(".article-stats .stat .fa-heart")?.parentElement || document.querySelector(".stat:has(.fa-heart)") || document.querySelector('[class*="fa-heart"]')?.parentElement;
 
       newLikesElement.addEventListener("click", (e) => {
         e.preventDefault();
@@ -207,17 +174,11 @@ class ArticleStats {
 
   showDefaultStats() {
     console.log("Showing default stats due to error");
-    const viewsElement = document.querySelector(
-      ".article-stats .stat .fa-eye"
-    )?.parentElement;
-    const likesElement = document.querySelector(
-      ".article-stats .stat .fa-heart"
-    )?.parentElement;
+    const viewsElement = document.querySelector(".article-stats .stat .fa-eye")?.parentElement;
+    const likesElement = document.querySelector(".article-stats .stat .fa-heart")?.parentElement;
 
-    if (viewsElement)
-      viewsElement.innerHTML = `<i class="fas fa-eye"></i> -- views`;
-    if (likesElement)
-      likesElement.innerHTML = `<i class="far fa-heart"></i> -- likes`;
+    if (viewsElement) viewsElement.innerHTML = `<i class="fas fa-eye"></i> -- views`;
+    if (likesElement) likesElement.innerHTML = `<i class="far fa-heart"></i> -- likes`;
   }
 }
 
@@ -230,8 +191,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (window.firebaseDb) {
       console.log("Firebase DB found, initializing stats...");
 
-      // Use a consistent article ID across all pages
-      let articleId = "linux-mint-journey"; // Always use the same ID for this article
+      // Determine article ID based on current page
+      let articleId = "homepage-featured";
+
+      if (window.location.pathname.includes("linux-mint")) {
+        articleId = "linux-mint-journey";
+      }
 
       console.log("Using article ID:", articleId);
       window.articleStats = new ArticleStats(articleId);
