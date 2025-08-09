@@ -44,6 +44,8 @@
         <link rel="stylesheet" href="assets/css/styles.css" />
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js"></script>
 
         <script type="application/ld+json">
             {
@@ -75,13 +77,13 @@
             </label>
         </div>
 
-        <section class="hero">
+        <section class="hero" id="hero-vanta">
             <div class="hero-content">
                 <div class="hero-image">
                     <img src="assets/images/shane.png" alt="Shane Whelan" class="profile-photo" />
                 </div>
                 <div class="hero-text">
-                    <h1>Shane Whelan</h1>
+                    <h1 data-text="Shane Whelan">Shane Whelan</h1>
                     <p class="subtitle">
                         <span class="static-text">I am a</span>
                         <span class="typing-text"></span>
@@ -228,12 +230,14 @@
                             <i class="fas fa-laptop-code"></i>
                         </div>
                         <div class="timeline-content">
-                            <div class="timeline-date">Summer 2025</div>
+                            <div class="timeline-date">June 2025 – August 2025</div>
                             <h3>Software Engineer Intern</h3>
-                            <p class="timeline-organization">Twilio</p>
+                            <p class="timeline-organization">Twilio (Dublin / Remote)</p>
                             <p>
-                                Incoming software engineering intern focused on developing customer engagement solutions with Twilio's communications APIs, working on backend systems and integrations
-                                to enhance platform capabilities.
+                                Spearheaded the deprecation of a legacy microservice by migrating its core logic into a high-throughput, real-time messaging platform, improving system reliability for
+                                Apple Push Notifications (APNs). Engineered a new APNs binding adaptor in Java, piloting the modern apns-http2 library to reduce network errors and operational
+                                overhead. Designed and implemented a thread-safe, in-memory APNs client caching solution using Google Guava to boost performance and enable accurate, comparative load
+                                testing. Conducted load tests using the Artillery framework to validate superior latency and throughput under load.
                             </p>
                         </div>
                     </div>
@@ -244,11 +248,12 @@
                         </div>
                         <div class="timeline-content">
                             <div class="timeline-date">2024 - Present</div>
-                            <h3>VCU Software Developer</h3>
+                            <h3>VCU Software Developer & Vice Captain of Powertrain</h3>
                             <p class="timeline-organization">UCD Formula Student (UCDFS)</p>
                             <p>
-                                Developed core VCU software for the EV team, focusing on CAN bus communication, Bamocar/Emrax motor control, Orion BMS integration, and FSUK safety protocol
-                                implementation on Arduino Due.
+                                Promoted to Vice Captain of Powertrain while developing core VCU software for the EV team. Leading powertrain engineering initiatives and focusing on CAN bus
+                                communication, Bamocar/Emrax motor control, Orion BMS integration, and FSUK safety protocol implementation on Arduino Due. Responsible for technical leadership and
+                                coordination within the powertrain subsystem.
                             </p>
                         </div>
                     </div>
@@ -330,16 +335,6 @@
                                 from USB creation to final setup.
                             </p>
                             <div class="article-footer">
-                                <div class="article-stats">
-                                    <span class="stat">
-                                        <i class="fas fa-eye"></i>
-                                        Loading... views
-                                    </span>
-                                    <span class="stat">
-                                        <i class="fas fa-heart"></i>
-                                        Loading... likes
-                                    </span>
-                                </div>
                                 <a href="my-linux-mint-installation-journey.html" class="read-more-btn">
                                     Read Article
                                     <i class="fas fa-arrow-right"></i>
@@ -634,10 +629,31 @@
             console.log("Firebase initialized successfully");
         </script>
 
-        <!-- Article Stats Script -->
-        <script type="module" src="assets/js/article-stats.js"></script>
+        <!-- Article Stats Script (temporarily disabled) -->
+        <!-- <script type="module" src="assets/js/article-stats.js"></script> -->
 
         <!-- Your existing script -->
         <script src="assets/js/script.js"></script>
+
+        <!-- Vanta.js Initialization -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                VANTA.FOG({
+                    el: "#hero-vanta",
+                    mouseControls: true,
+                    touchControls: true,
+                    gyroControls: false,
+                    minHeight: 200.0,
+                    minWidth: 200.0,
+                    highlightColor: 0xe74c3c,
+                    midtoneColor: 0x0984e3,
+                    lowlightColor: 0x2d3436,
+                    baseColor: 0xffffff,
+                    blurFactor: 0.6,
+                    speed: 1.0,
+                    zoom: 1.0,
+                });
+            });
+        </script>
     </body>
 </html>

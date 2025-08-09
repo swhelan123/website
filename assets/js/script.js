@@ -495,15 +495,17 @@ function initializeTimelineAnimation() {
 
       if (itemTop < triggerBottom) {
         item.classList.add("in-view");
+        item.classList.add("active");
       }
 
       const itemCenter = itemTop + item.offsetHeight / 2;
       const viewportCenter = window.innerHeight / 2;
 
-      item.classList.remove("active");
-
+      // Add focused state for currently centered item
       if (Math.abs(itemCenter - viewportCenter) < 150) {
-        item.classList.add("active");
+        item.classList.add("focused");
+      } else {
+        item.classList.remove("focused");
       }
     });
   }
@@ -515,7 +517,11 @@ function initializeTimelineAnimation() {
   setTimeout(() => {
     timelineItems.forEach((item, index) => {
       setTimeout(() => {
-        item.style.opacity = "0.6";
+        if (item.classList.contains("active")) {
+          item.style.opacity = "1";
+        } else {
+          item.style.opacity = "0.7";
+        }
         item.style.transform = "translateY(0)";
       }, index * 200);
     });
