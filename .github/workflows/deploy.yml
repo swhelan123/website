@@ -1,0 +1,29 @@
+name: Build and Deploy
+on:
+  push:
+    branches: [main]
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build
+        run: |
+          # Create a config with only the API key from secrets
+          echo "const firebaseConfig = {
+            apiKey: '${{ secrets.FIREBASE_API_KEY }}',
+            authDomain: 'shane-whelan-site.firebaseapp.com',
+            projectId: 'shane-whelan-site',
+            storageBucket: 'shane-whelan-site.firebasestorage.app',
+            messagingSenderId: '554586746000',
+            appId: '1:554586746000:web:6168e570b2ec1f407ffc15',
+            measurementId: 'G-19RN3ZDR5F'
+          };" > assets/js/firebase-config.js
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: .
