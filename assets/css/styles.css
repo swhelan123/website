@@ -613,6 +613,56 @@ body.dark-mode .education-icon {
 }
 
 /* Projects & Experience Section */
+/* Project Thumbnails */
+.project-thumb {
+    width: 100%;
+    aspect-ratio: 16 / 9; /* Modern browsers */
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+}
+
+.project-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1);
+    transition:
+        transform 0.6s ease,
+        filter 0.4s ease;
+}
+
+.project-card:hover .project-thumb img {
+    transform: scale(1.05);
+    filter: brightness(1.05);
+}
+
+/* Fallback for browsers without aspect-ratio support */
+@supports not (aspect-ratio: 16 / 9) {
+    .project-thumb {
+        height: 0;
+        padding-top: 56.25%; /* 16:9 */
+    }
+    .project-thumb img {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}
+
+body.dark-mode .project-thumb {
+    background: linear-gradient(135deg, var(--accent-color) 0%, var(--secondary-color) 100%);
+}
+
+/* Optional: soften transition between image and header */
+.project-card .card-header {
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+body.dark-mode .project-card .card-header {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
 .projects-container {
     display: grid;
     /* Default: auto-fill columns with a minimum width */
@@ -1954,11 +2004,6 @@ body.dark-mode .footer-social a:hover {
 }
 
 /* Fix for Adobe Photoshop icon */
-.fa-camera:before {
-    /* Assuming you used fa-camera for Photoshop */
-    /* If you have a specific class for Photoshop, use that instead */
-    /* Example: content: "\fXXX"; Find the correct Font Awesome unicode */
-}
 
 /* Active nav styles */
 nav ul li a.active {
