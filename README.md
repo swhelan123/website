@@ -1,32 +1,32 @@
-# Shane Whelan - Personal Portfolio Website
+# My Personal Portfolio Website
 
-Welcome to the repository for Shane Whelan's personal portfolio website, hosted at [shane-whelan.ie](https://shane-whelan.ie).
+Welcome to my personal portfolio website repository, hosted at [shane-whelan.ie](https://shane-whelan.ie).
 
 ## About
 
-This is a static portfolio website showcasing the professional profile, projects, and experiences of Shane Whelan, a Computer Science student at University College Dublin (UCD) and VCU Software Developer at UCD Formula Student Team.
+This is my portfolio website where I showcase my work as a Computer Science student at University College Dublin (UCD) and VCU Software Developer at UCD Formula Student Team.
 
 ## Website Features
 
-The website includes the following sections:
+My website includes:
 
 - **Hero Section**: Interactive 3D background with typing animation
-- **About**: Personal introduction and background
-- **Education**: Academic qualifications and achievements
-- **Projects & Contributions**: Showcase of development projects and open-source contributions
-- **Experience**: Professional and volunteer work experience
-- **Articles**: Technical articles and blog posts
-- **Skills**: Technical skills and competencies
-- **Contact**: Contact information and social links
+- **About**: My background and interests
+- **Education**: Academic qualifications
+- **Projects & Contributions**: Development projects and open-source work
+- **Experience**: Work experience and achievements
+- **Articles**: Technical articles I've written
+- **Skills**: Technical competencies
+- **Contact**: How to reach me
 
-## Technology Stack
+## Tech Stack
 
-- **Frontend**: HTML5, CSS3, JavaScript (ES6+)
+- **Frontend**: HTML5, CSS3, JavaScript
 - **Styling**: Custom CSS with responsive design
-- **Fonts**: Google Fonts (Inter family)
+- **Fonts**: Google Fonts (Inter)
 - **Icons**: Font Awesome 6.4.0
-- **3D Effects**: Three.js with Vanta.js fog effect
-- **Hosting**: GitHub Pages with custom domain
+- **3D Effects**: Three.js with Vanta.js
+- **Hosting**: GitHub Pages
 
 ## File Structure
 
@@ -47,12 +47,7 @@ The website includes the following sections:
 
 ## Getting Started
 
-### Prerequisites
-
-This is a static website that requires no build process or dependencies. You only need:
-
-- A modern web browser
-- A local web server (optional, for development)
+This is a static website with no build process required.
 
 ### Local Development
 
@@ -62,54 +57,27 @@ This is a static website that requires no build process or dependencies. You onl
    cd website
    ```
 
-2. Serve the files locally using any web server:
-   
-   **Using Python 3:**
+2. Serve locally with any web server:
    ```bash
    python -m http.server 8000
-   ```
-   
-   **Using Node.js (http-serve):**
-   ```bash
+   # or
    npx serve .
    ```
-   
-   **Using PHP:**
-   ```bash
-   php -S localhost:8000
-   ```
 
-3. Open your browser and navigate to `http://localhost:8000`
+3. Open `http://localhost:8000` in your browser
 
-### Deployment
+The site is automatically deployed to GitHub Pages at [shane-whelan.ie](https://shane-whelan.ie).
 
-The website is automatically deployed to GitHub Pages and accessible at [shane-whelan.ie](https://shane-whelan.ie). Any changes pushed to the main branch will be automatically deployed.
+## Features
 
-## Features in Detail
-
-### Interactive Elements
-
-- **3D Background**: Vanta.js fog effect on the hero section
-- **Typing Animation**: Dynamic text animation showing different roles
-- **Responsive Design**: Mobile-first approach with breakpoints for all device sizes
-- **Smooth Scrolling**: Navigation with smooth scroll behavior
-- **Sticky Header**: Navigation that becomes sticky on scroll
-
-### SEO Optimization
-
-- Semantic HTML structure
-- Meta tags for social media sharing (Open Graph, Twitter Cards)
-- Structured data (JSON-LD)
-- Sitemap and robots.txt
-- Optimized images and performance
+- **3D Background**: Vanta.js fog effect
+- **Typing Animation**: Dynamic role display
+- **Responsive Design**: Works on all devices
+- **SEO Optimized**: Meta tags, structured data, sitemap
 
 ## Contributing
 
-This is a personal portfolio website. However, if you notice any bugs or have suggestions for improvements, feel free to:
-
-1. Open an issue
-2. Submit a pull request
-3. Contact Shane directly through the website
+If you notice any bugs or have suggestions, feel free to open an issue or submit a pull request.
 
 ## Contact
 
@@ -117,10 +85,6 @@ This is a personal portfolio website. However, if you notice any bugs or have su
 - **GitHub**: [@swhelan123](https://github.com/swhelan123)
 - **LinkedIn**: [Shane Whelan](https://www.linkedin.com/in/shane-whelan-364988291/)
 
-## License
-
-This project is personal portfolio content. Please respect copyright and don't copy the content or design without permission. The code structure and technical implementation can be used as reference for educational purposes.
-
 ---
 
-*Built with ❤️ by Shane Whelan*
+*Built with ❤️ by me*
