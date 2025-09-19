@@ -515,8 +515,8 @@ function initializeTimelineAnimation() {
   setTimeout(() => {
     timelineItems.forEach((item, index) => {
       setTimeout(() => {
-        item.style.opacity = "0.6";
-        item.style.transform = "translateY(0)";
+        // Add class and let CSS control opacity/transform
+        item.classList.add("in-view");
       }, index * 200);
     });
   }, 500);
