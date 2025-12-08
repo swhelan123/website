@@ -47,9 +47,38 @@ themeSwitch.addEventListener("change", () => {
 document.addEventListener("DOMContentLoaded", function () {
   // Header behavior
   const header = document.querySelector(".sticky-header");
+  const navToggle = header ? header.querySelector(".nav-toggle") : null;
+  const navMenu = header ? header.querySelector("nav ul") : null;
   const headerHeight = header.offsetHeight;
   const hero = document.querySelector(".hero");
   const heroHeight = hero.offsetHeight;
+
+  if (navToggle && navMenu) {
+    navToggle.addEventListener("click", () => {
+      const isExpanded = navToggle.getAttribute("aria-expanded") === "true";
+      navToggle.setAttribute("aria-expanded", String(!isExpanded));
+
+      if (header) {
+        header.classList.toggle("nav-open", !isExpanded);
+      }
+    });
+
+    navMenu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        if (window.innerWidth <= 700 && header && header.classList.contains("nav-open")) {
+          header.classList.remove("nav-open");
+          navToggle.setAttribute("aria-expanded", "false");
+        }
+      });
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 700 && header && header.classList.contains("nav-open")) {
+        header.classList.remove("nav-open");
+        navToggle.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
 
   // Calculate where the header should start sticking
   const stickyPoint = heroHeight - headerHeight;
@@ -182,7 +211,7 @@ function initializeTypingAnimation() {
   }
 
   function startCursorBlink() {
-    cursorElement.style.animation = "blink 0.7s infinite";
+    cursorElement.style.animation = "blink 0.7s steps(1, end) infinite";
   }
 
   function typeRole() {

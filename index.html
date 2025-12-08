@@ -86,8 +86,10 @@
                     <h1>Shane Whelan</h1>
                     <p class="subtitle">
                         <span class="static-text">I am a</span>
-                        <span class="typing-text"></span>
-                        <span class="cursor"></span>
+                        <span class="typing-wrapper">
+                            <span class="typing-text"></span>
+                            <span class="cursor" aria-hidden="true"></span>
+                        </span>
                     </p>
                     <div class="hero-badges">
                         <a href="https://github.com/swhelan123" class="social-badge github" target="_blank" rel="noopener noreferrer"> <i class="fab fa-github"></i> GitHub </a>
@@ -102,7 +104,12 @@
 
         <header class="sticky-header">
             <nav>
-                <ul>
+                <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">
+                    <span class="sr-only">Toggle navigation</span>
+                    <i class="fas fa-bars menu-icon" aria-hidden="true"></i>
+                    <i class="fas fa-times close-icon" aria-hidden="true"></i>
+                </button>
+                <ul id="site-nav">
                     <li>
                         <a href="#about"><i class="fas fa-user"></i> About</a>
                     </li>
