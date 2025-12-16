@@ -2,23 +2,48 @@
   const canvas = document.getElementById("cad-canvas");
   const statusEl = document.getElementById("cad-status");
   const viewer = canvas?.parentElement;
-  const MODEL_PATH = "/assets/models/cad-portfolio.glb";
+  const MODEL_PATH = "assets/models/cad-portfolio.glb";
+  const isFileProtocol = window.location.protocol === "file:";
 
   if (!canvas || !viewer) {
     return;
   }
 
-  const CDN_BASE = "https://unpkg.com/three@0.160.0";
-  const FALLBACKS = [
-    { check: () => window.THREE, url: `${CDN_BASE}/build/three.min.js` },
-    { check: () => window.THREE && THREE.GLTFLoader, url: `${CDN_BASE}/examples/js/loaders/GLTFLoader.js` },
-    { check: () => window.THREE && THREE.OrbitControls, url: `${CDN_BASE}/examples/js/controls/OrbitControls.js` },
+  const sourceSets = [
+    {
+      check: () => window.THREE,
+      urls: [
+        "assets/js/vendor/three/three.min.js",
+        "https://cdnjs.cloudflare.com/ajax/libs/three.js/r160/three.min.js",
+        "https://unpkg.com/three@0.160.0/build/three.min.js",
+      ],
+    },
+    {
+      check: () => window.THREE && THREE.GLTFLoader,
+      urls: [
+        "assets/js/vendor/three/GLTFLoader.js",
+        "https://cdnjs.cloudflare.com/ajax/libs/three.js/r160/examples/js/loaders/GLTFLoader.js",
+        "https://unpkg.com/three@0.160.0/examples/js/loaders/GLTFLoader.js",
+      ],
+    },
+    {
+      check: () => window.THREE && THREE.OrbitControls,
+      urls: [
+        "assets/js/vendor/three/OrbitControls.js",
+        "https://cdnjs.cloudflare.com/ajax/libs/three.js/r160/examples/js/controls/OrbitControls.js",
+        "https://unpkg.com/three@0.160.0/examples/js/controls/OrbitControls.js",
+      ],
+    },
   ];
 
   const loadScript = (url) =>
     new Promise((resolve, reject) => {
-      const existing = document.querySelector(`script[src=\"${url}\"]`);
+      const existing = document.querySelector(`script[src="${url}"]`);
       if (existing) {
+        if (existing.dataset.loaded === "true") {
+          resolve();
+          return;
+        }
         existing.addEventListener("load", () => resolve());
         existing.addEventListener("error", (e) => reject(e));
         return;
@@ -26,15 +51,31 @@
       const script = document.createElement("script");
       script.src = url;
       script.async = true;
-      script.onload = () => resolve();
+      script.onload = () => {
+        script.dataset.loaded = "true";
+        resolve();
+      };
       script.onerror = (e) => reject(e);
       document.head.appendChild(script);
     });
 
   const ensureDependencies = async () => {
-    for (const { check, url } of FALLBACKS) {
-      if (!check()) {
-        await loadScript(url);
+    for (const { check, urls } of sourceSets) {
+      if (check()) continue;
+      let loaded = false;
+      for (const url of urls) {
+        try {
+          await loadScript(url);
+          if (check()) {
+            loaded = true;
+            break;
+          }
+        } catch (e) {
+          // try next source
+        }
+      }
+      if (!loaded && !check()) {
+        return false;
       }
     }
     return window.THREE && THREE.GLTFLoader && THREE.OrbitControls;
@@ -44,7 +85,10 @@
     const ready = await ensureDependencies().catch(() => false);
     if (!ready) {
       if (statusEl) {
-        statusEl.textContent = "Three.js viewer dependencies failed to load. Check your connection and reload.";
+        const reason = isFileProtocol
+          ? "Serve the site via http(s) (e.g., `python -m http.server`) so scripts can load."
+          : "Check ad-blockers/network settings or host the Three.js files locally in assets/js/vendor/three/.";
+        statusEl.textContent = `Three.js viewer dependencies failed to load. ${reason}`;
       }
       return;
     }
