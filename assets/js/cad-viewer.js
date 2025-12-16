@@ -13,25 +13,25 @@
     {
       check: () => window.THREE,
       urls: [
-        "assets/js/vendor/three/three.min.js",
         "https://cdnjs.cloudflare.com/ajax/libs/three.js/r160/three.min.js",
         "https://unpkg.com/three@0.160.0/build/three.min.js",
+        "assets/js/vendor/three/three.min.js",
       ],
     },
     {
       check: () => window.THREE && THREE.GLTFLoader,
       urls: [
-        "assets/js/vendor/three/GLTFLoader.js",
         "https://cdnjs.cloudflare.com/ajax/libs/three.js/r160/examples/js/loaders/GLTFLoader.js",
         "https://unpkg.com/three@0.160.0/examples/js/loaders/GLTFLoader.js",
+        "assets/js/vendor/three/GLTFLoader.js",
       ],
     },
     {
       check: () => window.THREE && THREE.OrbitControls,
       urls: [
-        "assets/js/vendor/three/OrbitControls.js",
         "https://cdnjs.cloudflare.com/ajax/libs/three.js/r160/examples/js/controls/OrbitControls.js",
         "https://unpkg.com/three@0.160.0/examples/js/controls/OrbitControls.js",
+        "assets/js/vendor/three/OrbitControls.js",
       ],
     },
   ];
