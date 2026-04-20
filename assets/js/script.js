@@ -63,15 +63,34 @@
     const el = document.getElementById(id);
     if (el) el.closest('.stat-item')?.remove();
   };
+  const year = new Date().getFullYear();
 
+  // Public repo count
   fetch('https://api.github.com/users/swhelan123')
     .then(r => r.ok ? r.json() : Promise.reject())
     .then(d => setEl('stat-repos', d.public_repos))
     .catch(() => hideStatItem('stat-repos'));
 
+  // Total PRs authored
   fetch('https://api.github.com/search/issues?q=author:swhelan123+type:pr&per_page=1')
     .then(r => r.ok ? r.json() : Promise.reject())
     .then(d => setEl('stat-prs', d.total_count + '+'))
     .catch(() => hideStatItem('stat-prs'));
+
+  // Contributions this year (via public contributions API)
+  fetch(`https://github-contributions-api.jogruber.de/v4/swhelan123?y=${year}`)
+    .then(r => r.ok ? r.json() : Promise.reject())
+    .then(d => {
+      const count = d.total[year] ?? d.total[year - 1];
+      if (count != null) setEl('stat-contributions', count);
+      else hideStatItem('stat-contributions');
+    })
+    .catch(() => hideStatItem('stat-contributions'));
+
+  // PR reviews this year
+  fetch(`https://api.github.com/search/issues?q=type:pr+reviewed-by:swhelan123+updated:>=${year}-01-01&per_page=1`)
+    .then(r => r.ok ? r.json() : Promise.reject())
+    .then(d => setEl('stat-reviews', d.total_count + '+'))
+    .catch(() => hideStatItem('stat-reviews'));
 
 })();
