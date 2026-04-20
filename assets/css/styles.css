@@ -2576,3 +2576,131 @@ body.dark-mode .timeline-content p:last-child {
         font-size: 1.02rem;
     }
 }
+
+/* CAD Section */
+.cad-section {
+    position: relative;
+}
+
+.cad-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    align-items: stretch;
+}
+
+.cad-copy {
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.08), rgba(9, 132, 227, 0.08));
+    border: 1px solid rgba(231, 76, 60, 0.18);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+}
+
+body.dark-mode .cad-copy {
+    background: linear-gradient(135deg, rgba(9, 132, 227, 0.12), rgba(231, 76, 60, 0.08));
+    border-color: rgba(9, 132, 227, 0.22);
+}
+
+.cad-intro {
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+}
+
+.cad-details {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem;
+    display: grid;
+    gap: 0.6rem;
+}
+
+.cad-details li {
+    display: flex;
+    gap: 0.6rem;
+    align-items: baseline;
+    line-height: 1.5;
+}
+
+.cad-label {
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--primary-color);
+}
+
+body.dark-mode .cad-label {
+    color: var(--accent-color);
+}
+
+.cad-tip {
+    font-size: 0.95rem;
+    opacity: 0.85;
+}
+
+.cad-viewer {
+    position: relative;
+    background: radial-gradient(circle at 30% 20%, rgba(231, 76, 60, 0.25), transparent 35%), radial-gradient(circle at 70% 40%, rgba(9, 132, 227, 0.25), transparent 35%), linear-gradient(140deg, #0f131a 0%, #0b1018 100%);
+    border-radius: 18px;
+    overflow: hidden;
+    min-height: 420px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.25);
+}
+
+body.light-mode .cad-viewer {
+    border-color: rgba(0, 0, 0, 0.06);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+}
+
+.cad-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08), transparent 45%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+#cad-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.cad-status {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.55);
+    color: #e8f3ff;
+    font-size: 0.95rem;
+    backdrop-filter: blur(6px);
+    z-index: 3;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cad-status.loaded {
+    background: rgba(14, 161, 125, 0.75);
+    color: #e7fff7;
+    border-color: rgba(14, 161, 125, 0.5);
+}
+
+@media (max-width: 768px) {
+    .cad-viewer {
+        min-height: 360px;
+    }
+
+    .cad-status {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.4rem;
+    }
+}
