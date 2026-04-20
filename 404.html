@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 | Shane Whelan</title>
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href="assets/images/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+  <meta name="theme-color" content="#0a3d2e" />
+  <style>
+    :root {
+      --ink: #0f1410; --ink-soft: #3a4540;
+      --paper: #f4f0e6; --moss: #0a3d2e; --sun: #e8a33d;
+      --serif: ui-serif, 'Iowan Old Style', 'Apple Garamond', Georgia, serif;
+      --sans:  ui-sans-serif, -apple-system, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+      --mono:  ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--serif);
+      background: var(--paper); color: var(--ink);
+      min-height: 100svh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 2rem;
+      -webkit-font-smoothing: antialiased;
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: .09; pointer-events: none; mix-blend-mode: multiply;
+    }
+    .num {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(6rem, 20vw, 14rem);
+      line-height: 1;
+      letter-spacing: -.04em;
+      color: var(--moss);
+      opacity: .18;
+      user-select: none;
+    }
+    h1 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      letter-spacing: -.02em;
+      margin-top: -.5rem;
+      margin-bottom: 1.2rem;
+    }
+    h1 em { font-style: italic; color: var(--moss); }
+    p {
+      font-size: 1rem;
+      color: var(--ink-soft);
+      max-width: 36ch;
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+    }
+    a {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .75rem 1.6rem;
+      background: var(--moss); color: var(--paper);
+      font-family: var(--sans);
+      font-size: .78rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: opacity .2s;
+    }
+    a:hover { opacity: .85; }
+  </style>
+</head>
+<body>
+  <p class="num" aria-hidden="true">404</p>
+  <h1>Page <em>not found.</em></h1>
+  <p>Whatever you were looking for isn't here. Probably a stale link.</p>
+  <a href="/">Back to homepage</a>
+</body>
+</html>
